@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import Header from './Header';
 import './App.css';
 
-function App() {
+const App = () => {
+
+  let backgroundImage;
+  let timeClass;
+
+  const date = new Date();
+  if (date.getHours() > 5 && date.getHours < 19) {
+    backgroundImage = 'url(/day-sky.jpg)';
+    timeClass = 'background-image day';
+  } else {
+    backgroundImage = 'url(/night-sky.jpg)';
+    timeClass = 'background-image night';
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ backgroundImage }} className={timeClass}>
+      <Header />
     </div>
   );
 }
