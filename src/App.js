@@ -1,4 +1,5 @@
 import Header from './Header';
+import PopularCities from './PopularCities';
 import './App.css';
 
 const App = () => {
@@ -17,7 +18,10 @@ const App = () => {
 
   return (
     <div style={{ backgroundImage }} className={timeClass}>
-      <Header />
+      <div className="overlay">
+        <Header />
+        <PopularCities />
+      </div>
     </div>
   );
 }

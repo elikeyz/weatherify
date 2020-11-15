@@ -1,0 +1,54 @@
+section {
+    padding: 20px 5%;
+}
+
+section h2 {
+    margin: 10px;
+}
+
+.city-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.city-grid a {
+    width: 30%;
+    margin: 10px;
+    box-shadow: 1px 1px 3px 2px rgba(0,0,0,0.5);
+    padding: 10px;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.city-grid a:hover {
+    transform: scale(1.05);
+}
+
+.city-grid a > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.city-grid a img {
+    height: 70px;
+}
+
+.city-grid .city-card-data {
+    display: flex;
+    align-items: center;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .city-grid a {
+        width: 45%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .city-grid a {
+        width: 100%;
+    }
+}
