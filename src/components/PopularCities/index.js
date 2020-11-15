@@ -33,7 +33,7 @@ const PopularCities = () => {
                             <p>{city}</p>
                             <div className="city-card-data">
                                 <p>30<sup>o</sup>C</p>
-                                <img src="https://openweathermap.org/img/wn/01n@2x.png" alt="clear skies" />
+                                <img src="https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0009_light_rain_showers.png" alt="clear skies" />
                             </div>
                         </div>
                     </a>

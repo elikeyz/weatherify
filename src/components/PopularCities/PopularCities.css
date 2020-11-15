@@ -15,13 +15,13 @@ section h2 {
 .city-grid a {
     width: 30%;
     margin: 10px;
-    box-shadow: 1px 1px 3px 2px rgba(0,0,0,0.5);
+    box-shadow: 1px 1px 3px 2px rgba(0,0,0,0.2);
     padding: 10px;
     box-sizing: border-box;
     text-decoration: none;
 }
 
-.city-grid a:hover {
+.city-grid a:hover, .city-grid a:focus {
     transform: scale(1.05);
 }
 
@@ -32,7 +32,8 @@ section h2 {
 }
 
 .city-grid a img {
-    height: 70px;
+    height: 40px;
+    margin-left: 10px;
 }
 
 .city-grid .city-card-data {
