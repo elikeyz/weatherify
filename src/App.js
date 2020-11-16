@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Landing from './pages/Landing';
+import SearchForm from './components/SearchForm';
 import './App.css';
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
       <div className="overlay">
         <Router>
           <Header />
+          <SearchForm />
           <Switch>
             <Route path="/">
               <Landing />

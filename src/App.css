@@ -5,9 +5,13 @@
 
 .background-image .overlay {
   background-color: rgba(0,0,0,0.4);
+  height: 100vh;
 }
 
-.background-image h1, h2, p {
+.background-image h1,
+.background-image h2,
+.background-image p,
+.background-image label {
   color: white;
 }
 
