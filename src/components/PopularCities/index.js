@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './PopularCities.css';
 
+// An array containing the 15 most populated cities in the world
 const defaultCities = [
     'Tokyo',
     'Delhi',
@@ -22,12 +23,18 @@ const defaultCities = [
     'Kolkata'
 ];
 
+/**
+ * The PopularCities component
+ */
 const PopularCities = () => {
 
+    // Declare the cities state
     const [cities, setCities] = useState(defaultCities);
 
+    //Declare the useHistory hook from react router
     const history = useHistory();
 
+    //Get stored cities from local storage if available, otherwise, store the default 15 cities.
     useEffect(() => {
         if (!!localStorage.getItem('popular-cities')) {
             const storedCities = JSON.parse(localStorage.getItem('popular-cities'));
@@ -37,6 +44,7 @@ const PopularCities = () => {
         }
     }, []);
 
+    // Remove a city from the list
     const clearCity = (index) => {
         const remainingCities = [...cities];
         remainingCities.splice(index, 1);

@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import './SearchForm.css';
 
+/**
+ * The search form component
+ */
 const SearchForm = () => {
 
+    // Declare the location field input value state.
     const [location, setLocation] = useState('');
 
     return (

@@ -6,13 +6,17 @@ import SearchForm from './components/SearchForm';
 import Weather from './pages/Weather';
 import './App.css';
 
+/**
+ * The App component
+ */
 const App = () => {
 
+  // Declare the background image and time of day style class states
   const [backgroundImage, setBackground] = useState('/day-sky.jpg');
   const [timeClass, setTimeClass] = useState('/night-sky.jpg');
 
   useEffect(() => {
-    // Set background image based on whether the user's timezone is daytime or night
+    // Set background image and style classes based on whether the user's timezone is daytime or night
     const date = new Date();
     if (date.getHours() > 5 && date.getHours() < 19) {
       setBackground('/day-sky.jpg');
