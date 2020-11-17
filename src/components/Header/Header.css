@@ -1,3 +1,7 @@
 header {
     padding: 10px;
 }
+
+header a {
+    text-decoration: none;
+}
