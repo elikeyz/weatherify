@@ -2,6 +2,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding: 10px;
 }
 
 .search-form input {
@@ -15,4 +16,14 @@
 .search-form label,
 .search-form input {
     font-size: 1rem;
+}
+
+@media only screen and (max-width: 500px) {
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form label {
+        margin-bottom: 10px;
+    }
 }
