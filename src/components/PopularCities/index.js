@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './PopularCities.css';
@@ -25,6 +26,8 @@ const PopularCities = () => {
 
     const [cities, setCities] = useState(defaultCities);
 
+    const history = useHistory();
+
     useEffect(() => {
         if (!!localStorage.getItem('popular-cities')) {
             const storedCities = JSON.parse(localStorage.getItem('popular-cities'));
@@ -46,9 +49,9 @@ const PopularCities = () => {
             <h2>Popular</h2>
             <div className="city-grid">
                 {cities.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0)).map((city, index) => (
-                    <a key={index} href="#">
+                    <button key={index} onClick={(e) => history.push('/weather')}>
                         <div>
-                            <button onClick={(e) => clearCity(index)}>
+                            <button onClick={(e) => {e.stopPropagation(); clearCity(index);}}>
                                 <FontAwesomeIcon icon={faTimes} />
                             </button>
                             <p>{city}</p>
@@ -57,7 +60,7 @@ const PopularCities = () => {
                                 <img src="https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0009_light_rain_showers.png" alt="clear skies" />
                             </div>
                         </div>
-                    </a>
+                    </button>
                 ))}
             </div>
         </section>

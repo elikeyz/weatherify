@@ -11,16 +11,40 @@
   z-index: -10;
 }
 
+.night > img {
+  width: 100%;
+}
+
+.day > img {
+  height: 100%;
+}
+
 .background-image .overlay {
-  background-color: rgba(0,0,0,0.4);
   min-height: 100vh;
 }
 
-.background-image h1,
-.background-image h2,
-.background-image p,
-.background-image label {
+.day .overlay {
+  background-color: rgba(150, 181, 229, 0.7);
+}
+
+.night .overlay {
+  background-color: rgba(60, 74, 144, 0.4);
+}
+
+.night h1,
+.night h2,
+.night p,
+.night label,
+.night button {
   color: white;
+}
+
+.day h1,
+.day h2,
+.day p,
+.day label,
+.day button {
+  color: black;
 }
 
 h1, h2 {

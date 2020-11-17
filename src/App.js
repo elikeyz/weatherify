@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Landing from './pages/Landing';
 import SearchForm from './components/SearchForm';
+import Weather from './pages/Weather';
 import './App.css';
 
 const App = () => {
@@ -30,6 +31,10 @@ const App = () => {
           <Header />
           <SearchForm />
           <Switch>
+            <Route path="/weather">
+              <Weather />
+            </Route>
+
             <Route path="/">
               <Landing />
             </Route>

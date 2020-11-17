@@ -1,0 +1,19 @@
+.weather-details h2 {
+    font-size: 1.8rem;
+    margin-left: 0;
+}
+
+.weather-details .description {
+    font-size: 1.5rem;
+    font-weight: 100;
+    margin: 0px;
+}
+
+.weather-details .temp {
+    font-size: 5rem;
+    margin: 0;
+}
+
+.weather-details img {
+    width: 150px;
+}

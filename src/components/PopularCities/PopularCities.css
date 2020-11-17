@@ -12,28 +12,30 @@ section h2 {
     justify-content: space-between;
 }
 
-.city-grid a {
+.city-grid > button {
     width: 30%;
     margin: 10px;
     box-shadow: 1px 1px 3px 2px rgba(0,0,0,0.2);
     padding: 10px;
     box-sizing: border-box;
     text-decoration: none;
+    cursor: pointer;
+    background-color: inherit;
+    border: none;
 }
 
 .city-grid a:hover, .city-grid a:focus {
     transform: scale(1.05);
 }
 
-.city-grid a > div {
+.city-grid > button > div {
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
 }
 
-.city-grid a > div button {
-    color: white;
+.city-grid > button > div button {
     position: absolute;
     top: 0;
     right: 0;
@@ -42,7 +44,7 @@ section h2 {
     cursor: pointer;
 }
 
-.city-grid a img {
+.city-grid > button img {
     height: 40px;
     margin-left: 10px;
 }
@@ -55,13 +57,13 @@ section h2 {
 
 
 @media only screen and (max-width: 768px) {
-    .city-grid a {
+    .city-grid > button {
         width: 45%;
     }
 }
 
 @media only screen and (max-width: 500px) {
-    .city-grid a {
+    .city-grid > button {
         width: 100%;
     }
 }
