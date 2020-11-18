@@ -20,11 +20,51 @@
     margin: 0;
 }
 
-.weather-details img {
-    width: 150px;
-}
-
 .weather-details .temp-section {
     display: flex;
     align-items: center;
+}
+
+.weather-details-grid {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.weather-details-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 25%;
+}
+
+.weather-details-key p {
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.weather-btns {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.weather-btns button {
+    width: 45%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.night .weather-btns button {
+    background-color: #C5CAE9;
+    color: #1A237E !important;
+}
+
+.day .weather-btns button {
+    background-color: #1A237E;
+    color: #C5CAE9 !important;
 }
