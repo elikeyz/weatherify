@@ -9,14 +9,8 @@
   right: 0;
   bottom: 0;
   z-index: -10;
-}
-
-.night > img {
-  height: 100%;
-}
-
-.day > img {
-  height: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
 }
 
 .background-image .overlay {

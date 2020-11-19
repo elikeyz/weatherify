@@ -1,24 +1,39 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faEye } from '@fortawesome/free-solid-svg-icons';
 import ModalContext from '../../ModalContext';
+import ModeContext from '../../ModeContext';
 import './WeatherDetails.css';
 
 /**
  * The Weather Details component
  */
-const WeatherDetails = () => {
+const WeatherDetails = ({ details: { current, location } }) => {
 
     const { toggleNotesModal } = useContext(ModalContext);
+    const setMode = useContext(ModeContext);
+
+    useEffect(() => {
+        if (current.is_day === 'yes') {
+            setMode('day');
+        } else if (current.is_day === 'no') {
+            setMode('night');
+        }
+    }, [current.is_day, setMode]);
 
     return (
         <section className="weather-details">
             <div>
-                <h2>Lagos, Nigeria</h2>
-                <p className="description">Clear Skies</p>
+                <h2>{location.name}, {location.country}</h2>
+                {current.weather_descriptions.map(desc => <p className="description">{desc}</p>)}
                 <div className="temp-section">
-                    <img src="https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0025_light_rain_showers_night.png" alt="clear skies" />
-                    <p className="temp">30<sup>o</sup>C</p>
+                    {current.weather_icons.map((icon, index) => (
+                        <img 
+                            src={icon} 
+                            alt={current.weather_descriptions[index]} 
+                            />
+                    ))}
+                    <p className="temp">{current.temperature}<sup>o</sup>C</p>
                 </div>
                 <div className="weather-details-grid">
                     <div className="weather-details-unit">
@@ -26,7 +41,7 @@ const WeatherDetails = () => {
                             <p>Wind Speed</p>
                         </div>
                         <div className="weather-details-value">
-                            <p>14</p>
+                            <p>{current.wind_speed}</p>
                         </div>
                     </div>
                     <div className="weather-details-unit">
@@ -34,7 +49,7 @@ const WeatherDetails = () => {
                             <p>Pressure</p>
                         </div>
                         <div className="weather-details-value">
-                            <p>1009</p>
+                            <p>{current.pressure}</p>
                         </div>
                     </div>
                     <div className="weather-details-unit">
@@ -42,7 +57,7 @@ const WeatherDetails = () => {
                             <p>Precipitation</p>
                         </div>
                         <div className="weather-details-value">
-                            <p>0.1</p>
+                            <p>{current.precip}</p>
                         </div>
                     </div>
                     <div className="weather-details-unit">
@@ -50,7 +65,7 @@ const WeatherDetails = () => {
                             <p>Humidity</p>
                         </div>
                         <div className="weather-details-value">
-                            <p>67</p>
+                            <p>{current.humidity}</p>
                         </div>
                     </div>
                 </div>

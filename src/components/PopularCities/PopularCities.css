@@ -12,7 +12,7 @@ section h2 {
     justify-content: space-between;
 }
 
-.city-grid > button {
+.city-grid > div {
     width: 30%;
     margin: 10px;
     box-shadow: 1px 1px 3px 2px rgba(0,0,0,0.2);
@@ -28,14 +28,14 @@ section h2 {
     transform: scale(1.05);
 }
 
-.city-grid > button > div {
+.city-grid > div > div {
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
 }
 
-.city-grid > button > div button {
+.city-grid > div > div button {
     position: absolute;
     top: 0;
     right: 0;
@@ -44,7 +44,7 @@ section h2 {
     cursor: pointer;
 }
 
-.city-grid > button img {
+.city-grid > div img {
     height: 40px;
     margin-left: 10px;
 }
@@ -57,13 +57,13 @@ section h2 {
 
 
 @media only screen and (max-width: 768px) {
-    .city-grid > button {
+    .city-grid > div {
         width: 45%;
     }
 }
 
 @media only screen and (max-width: 500px) {
-    .city-grid > button {
+    .city-grid > div {
         width: 100%;
     }
 }

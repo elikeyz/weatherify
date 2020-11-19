@@ -6,6 +6,7 @@ import SearchForm from './components/SearchForm';
 import Weather from './pages/Weather';
 import NotesModal from './components/NotesModal';
 import ModalContext from './ModalContext';
+import ModeContext from './ModeContext';
 import './App.css';
 
 /**
@@ -40,27 +41,29 @@ const App = () => {
   }, []);
 
   return (
-    <ModalContext.Provider value={{ showNotesModal, toggleNotesModal }}>
-      <div className={timeClass}>
-        <img src={backgroundImage} alt="Background" />
-        <div className="overlay">
-          <Router>
-            <Header />
-            <SearchForm />
-            <Switch>
-              <Route path="/weather">
-                <Weather setMode={setMode} />
-              </Route>
+    <ModeContext.Provider value={setMode}>
+      <ModalContext.Provider value={{ showNotesModal, toggleNotesModal }}>
+        <div className={timeClass}>
+          <img src={backgroundImage} alt="Background" />
+          <div className="overlay">
+            <Router>
+              <Header />
+              <SearchForm />
+              <Switch>
+                <Route path="/weather">
+                  <Weather />
+                </Route>
 
-              <Route path="/">
-                <Landing />
-              </Route>
-            </Switch>
-            <NotesModal show={showNotesModal} toggle={toggleNotesModal} />
-          </Router>
+                <Route path="/">
+                  <Landing />
+                </Route>
+              </Switch>
+              <NotesModal show={showNotesModal} toggle={toggleNotesModal} />
+            </Router>
+          </div>
         </div>
-      </div>
-    </ModalContext.Provider>
+      </ModalContext.Provider>
+    </ModeContext.Provider>
   );
 }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, createRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPen, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './NotesModal.css';
 
 const NotesModal = (props) => {
@@ -72,6 +72,9 @@ const NotesModal = (props) => {
         return (
             <div ref={modal} className="modal">
                 <div className="modal-content">
+                    <button className="modal-close" onClick={() => toggle(false)}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </button>
                     <h2>Notes</h2>
                     {/* Show Add Note button if none of the forms are visible */}
                     {!showForm && !showEditForm && <button onClick={() => setShowForm(true)}><FontAwesomeIcon icon={faPlus} />&nbsp;Add Note</button>}
@@ -105,7 +108,7 @@ const NotesModal = (props) => {
                     {/* Render all the existing notes here */}
                     {
                         notes.map((note, noteIndex) => (
-                            <article>
+                            <article key={noteIndex}>
                                 <div className="ctrl-btns">
                                     <button onClick={() => handleEditNote(noteIndex)}><FontAwesomeIcon icon={faPen} /></button>
                                     <button onClick={() => deleteNote(noteIndex)}><FontAwesomeIcon icon={faTrash} /></button>

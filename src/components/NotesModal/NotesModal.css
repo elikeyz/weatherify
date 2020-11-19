@@ -17,6 +17,16 @@
     padding: 20px;
     border: none;
     border-radius: 5px;
+    position: relative;
+}
+
+.modal-content .modal-close {
+    position: absolute;
+    top: -8px;
+    right: 3px;
+    background-color: #C5CAE9;
+    color: #1A237E !important;
+    border: none;
 }
 
 .modal-content h2 {
@@ -31,6 +41,7 @@
     border-radius: 5px;
     margin: 10px 0;
     cursor: pointer;
+    color: white !important;
 }
 
 .modal-content form {
@@ -61,6 +72,10 @@
     padding: 0;
     display: flex;
     flex-wrap: wrap;
+    height: 50vh;
+    align-items: flex-start;
+    overflow: auto;
+    align-content: flex-start;
 }
 
 .modal-content .ctrl-btns {

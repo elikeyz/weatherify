@@ -2,25 +2,27 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 import './PopularCities.css';
 
 // An array containing the 15 most populated cities in the world
+// Source: https://worldpopulationreview.com/world-cities
 const defaultCities = [
-    'Tokyo',
-    'Delhi',
-    'Shanghai',
-    'Sao Paulo',
-    'Mexico City',
-    'Dhaka',
-    'Cairo',
-    'Beijing',
-    'Mumbai',
-    'Osaka',
-    'Karachi',
-    'Chongqing',
-    'Istanbul',
-    'Buenos Aires',
-    'Kolkata'
+    'Tokyo,Japan',
+    'Delhi,India',
+    'Shanghai,China',
+    'Sao Paulo,Brazil',
+    'Mexico City,Mexico',
+    'Dhaka,Bangladesh',
+    'Cairo,Egypt',
+    'Beijing,China',
+    'Mumbai,India',
+    'Osaka,Japan',
+    'Karachi,Pakistan',
+    'Chongqing,China',
+    'Istanbul,Turkey',
+    'Buenos Aires,Argentina',
+    'Kolkata,India'
 ];
 
 /**
@@ -29,7 +31,7 @@ const defaultCities = [
 const PopularCities = () => {
 
     // Declare the cities state
-    const [cities, setCities] = useState(defaultCities);
+    const [cities, setCities] = useState([]);
 
     //Declare the useHistory hook from react router
     const history = useHistory();
@@ -40,8 +42,15 @@ const PopularCities = () => {
             const storedCities = JSON.parse(localStorage.getItem('popular-cities'));
             setCities(storedCities);
         } else {
-            localStorage.setItem('popular-cities', JSON.stringify(defaultCities));
+            localStorage.setItem('popular-cities', JSON.stringify([]));
         }
+
+        Promise.all(defaultCities.map(city => axios.get(`http://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${city}`)))
+            .then((result) => {
+                const citiesData = result.map(res => res.data);
+                localStorage.setItem('popular-cities', JSON.stringify(citiesData));
+                setCities(citiesData);
+            });
     }, []);
 
     // Remove a city from the list
@@ -56,19 +65,23 @@ const PopularCities = () => {
         <section>
             <h2>Popular</h2>
             <div className="city-grid">
-                {cities.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0)).map((city, index) => (
-                    <button key={index} onClick={(e) => history.push('/weather')}>
+                {cities.sort((a, b) => a.location.name.charCodeAt(0) - b.location.name.charCodeAt(0)).map((city, index) => (
+                    <div key={index} onClick={(e) => history.push(`/weather?search=${encodeURIComponent(`${city.location.name},${city.location.country}`)}`)}>
                         <div>
                             <button onClick={(e) => {e.stopPropagation(); clearCity(index);}}>
                                 <FontAwesomeIcon icon={faTimes} />
                             </button>
-                            <p>{city}</p>
+                            <p>{city.location.name}</p>
                             <div className="city-card-data">
-                                <p>30<sup>o</sup>C</p>
-                                <img src="https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0009_light_rain_showers.png" alt="clear skies" />
+                                <p>{city.current.temperature}<sup>o</sup>C</p>
+                                {city.current.weather_icons.map((iconUrl, index) => (
+                                    <img 
+                                        key={index} 
+                                        src={iconUrl} 
+                                        alt={city.current.weather_descriptions[index]} />))}
                             </div>
                         </div>
-                    </button>
+                    </div>
                 ))}
             </div>
         </section>

@@ -1,3 +1,10 @@
+.weather-details {
+    height: calc(100vh - 180px);
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+}
+
 .weather-details h2 {
     font-size: 1.8rem;
     margin-left: 0;
@@ -7,6 +14,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .weather-details .description {
@@ -29,6 +37,7 @@
     display: flex;
     width: 100%;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .weather-details-unit {
@@ -67,4 +76,14 @@
 .day .weather-btns button {
     background-color: #1A237E;
     color: #C5CAE9 !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .weather-btns {
+        width: 100%;
+    }
+
+    .weather-details-unit {
+        width: 50%;
+    }
 }
