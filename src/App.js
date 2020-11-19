@@ -5,8 +5,9 @@ import Landing from './pages/Landing';
 import SearchForm from './components/SearchForm';
 import Weather from './pages/Weather';
 import NotesModal from './components/NotesModal';
-import ModalContext from './ModalContext';
-import ModeContext from './ModeContext';
+import ModalContext from './contexts/ModalContext';
+import ModeContext from './contexts/ModeContext';
+import FavoritesContext from './contexts/FavoritesContext';
 import './App.css';
 
 /**
@@ -18,6 +19,7 @@ const App = () => {
   const [backgroundImage, setBackground] = useState('/day-sky.jpg');
   const [timeClass, setTimeClass] = useState('background-image day');
   const [showNotesModal, toggleNotesModal] = useState(false);
+  const [favorites, setFavorites] = useState([]);
 
   // Set background image and style classes based on input time of day
   const setMode = (timeOfDay) => {
@@ -30,6 +32,11 @@ const App = () => {
     }
   };
 
+  const changeFavorites = (updatedFavorites) => {
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+    setFavorites(updatedFavorites);
+  }
+
   useEffect(() => {
     // Set background image and style classes based on whether the user's timezone is daytime or night
     const date = new Date();
@@ -40,30 +47,39 @@ const App = () => {
     }
   }, []);
 
-  return (
-    <ModeContext.Provider value={setMode}>
-      <ModalContext.Provider value={{ showNotesModal, toggleNotesModal }}>
-        <div className={timeClass}>
-          <img src={backgroundImage} alt="Background" />
-          <div className="overlay">
-            <Router>
-              <Header />
-              <SearchForm />
-              <Switch>
-                <Route path="/weather">
-                  <Weather />
-                </Route>
+  useEffect(() => {
+    if (localStorage.getItem('favorites')) {
+      const storedFavorites = JSON.parse(localStorage.getItem('favorites'));
+      setFavorites(storedFavorites);
+    }
+  }, []);
 
-                <Route path="/">
-                  <Landing />
-                </Route>
-              </Switch>
-              <NotesModal show={showNotesModal} toggle={toggleNotesModal} />
-            </Router>
+  return (
+    <FavoritesContext.Provider value={{ favorites, changeFavorites }}>
+      <ModeContext.Provider value={setMode}>
+        <ModalContext.Provider value={{ showNotesModal, toggleNotesModal }}>
+          <div className={timeClass}>
+            <img src={backgroundImage} alt="Background" />
+            <div className="overlay">
+              <Router>
+                <Header />
+                <SearchForm />
+                <Switch>
+                  <Route path="/weather">
+                    <Weather />
+                  </Route>
+
+                  <Route path="/">
+                    <Landing />
+                  </Route>
+                </Switch>
+                <NotesModal show={showNotesModal} toggle={toggleNotesModal} />
+              </Router>
+            </div>
           </div>
-        </div>
-      </ModalContext.Provider>
-    </ModeContext.Provider>
+        </ModalContext.Provider>
+      </ModeContext.Provider>
+    </FavoritesContext.Provider>
   );
 }
 

@@ -1,17 +1,24 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faEye } from '@fortawesome/free-solid-svg-icons';
-import ModalContext from '../../ModalContext';
-import ModeContext from '../../ModeContext';
+import { faHeart as faHollowHeart } from '@fortawesome/free-regular-svg-icons';
+import ModalContext from '../../contexts/ModalContext';
+import ModeContext from '../../contexts/ModeContext';
+import FavoritesContext from '../../contexts/FavoritesContext';
 import './WeatherDetails.css';
 
 /**
  * The Weather Details component
  */
-const WeatherDetails = ({ details: { current, location } }) => {
+const WeatherDetails = ({ details }) => {
+
+    const { current, location } = details;
 
     const { toggleNotesModal } = useContext(ModalContext);
     const setMode = useContext(ModeContext);
+    const { favorites, changeFavorites } = useContext(FavoritesContext);
+
+    const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
         if (current.is_day === 'yes') {
@@ -21,14 +28,42 @@ const WeatherDetails = ({ details: { current, location } }) => {
         }
     }, [current.is_day, setMode]);
 
+    useEffect(() => {
+        const favoritesMatch = favorites.filter(fav => (fav.name === location.name) && (fav.country === location.country));
+
+        if (favoritesMatch.length < 0) {
+            setIsFavorite(true);
+        } else {
+            setIsFavorite(false);
+        }
+    }, [location.country, location.name]);
+
+    const addToFavorites = () => {
+        const updatedFavorites = [...favorites];
+        updatedFavorites.push(details);
+        changeFavorites(updatedFavorites);
+        setIsFavorite(true);
+    };
+
+    const removeFromFavorites = () => {
+        const updatedFavorites = [...favorites];
+        const index = updatedFavorites.findIndex(fav => (fav.name === location.name) && (fav.country === location.country));
+        updatedFavorites.splice(index, 1);
+        changeFavorites(updatedFavorites);
+        setIsFavorite(false);
+    };
+
     return (
         <section className="weather-details">
             <div>
                 <h2>{location.name}, {location.country}</h2>
-                {current.weather_descriptions.map(desc => <p className="description">{desc}</p>)}
+                {current.weather_descriptions.map((desc, index) => (
+                    <p key={index} className="description">{desc}</p>
+                    ))}
                 <div className="temp-section">
                     {current.weather_icons.map((icon, index) => (
                         <img 
+                            key={index}
                             src={icon} 
                             alt={current.weather_descriptions[index]} 
                             />
@@ -70,7 +105,11 @@ const WeatherDetails = ({ details: { current, location } }) => {
                     </div>
                 </div>
                 <div className="weather-btns">
-                    <button><FontAwesomeIcon icon={faHeart} />&nbsp;Add To Favorites</button>
+                    {isFavorite ? (
+                        <button onClick={() => removeFromFavorites()}><FontAwesomeIcon icon={faHeart} />&nbsp;Remove From Favorites</button>
+                    ) : (
+                        <button onClick={() => addToFavorites()}><FontAwesomeIcon icon={faHollowHeart} />&nbsp;Add To Favorites</button>
+                    )}
                     <button onClick={() => toggleNotesModal(true)}><FontAwesomeIcon icon={faEye} />&nbsp;View Notes</button>
                 </div>
             </div>
