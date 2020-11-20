@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import './PopularCities.css';
 
 // An array containing the 15 most populated cities in the world
 // Source: https://worldpopulationreview.com/world-cities

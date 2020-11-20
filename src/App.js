@@ -38,16 +38,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    // Set background image and style classes based on whether the user's timezone is daytime or night
-    const date = new Date();
-    if (date.getHours() > 5 && date.getHours() < 19) {
-      setMode('day');
-    } else {
-      setMode('night');
-    }
-  }, []);
-
-  useEffect(() => {
     if (localStorage.getItem('favorites')) {
       const storedFavorites = JSON.parse(localStorage.getItem('favorites'));
       setFavorites(storedFavorites);
