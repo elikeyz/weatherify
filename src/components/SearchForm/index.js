@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './SearchForm.css';
 
 /**
@@ -9,8 +10,18 @@ const SearchForm = () => {
     // Declare the location field input value state.
     const [location, setLocation] = useState('');
 
+    const history = useHistory();
+
+    const handleSearch = async (event) => {
+        event.preventDefault();
+
+        const searchTerm = location.split(',').map(term => term.trim()).join(',');
+
+        history.push(`/weather?search=${encodeURIComponent(searchTerm)}`);
+    };
+
     return (
-        <form className="search-form">
+        <form onSubmit={(e) => handleSearch(e)} className="search-form">
             <label htmlFor="location">Search Locations</label>
             <input id="location" type="search" placeholder="New York, USA" onChange={(e) => setLocation(e.target.value)} value={location} />
         </form>

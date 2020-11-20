@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import WeatherDetails from '../../components/WeatherDetails';
 
 /**
@@ -19,6 +20,10 @@ const Weather = () => {
             const storedCity = storedCities.find(cityData => cityData.location.name === city && cityData.location.country === country);
 
             if (storedCity) setDetails(storedCity);
+
+            axios.get(`http://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${searchTerm}`).then(result => {
+                setDetails(result.data);
+            });
         }
     }, []);
 
