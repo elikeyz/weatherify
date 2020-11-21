@@ -12,7 +12,7 @@ import './WeatherDetails.css';
  */
 const WeatherDetails = ({ details }) => {
 
-    const { current, location } = details;
+    const { success, current, location } = details;
 
     const { toggleNotesModal } = useContext(ModalContext);
     const setMode = useContext(ModeContext);
@@ -53,68 +53,70 @@ const WeatherDetails = ({ details }) => {
         setIsFavorite(false);
     };
 
-    return (
-        <section className="weather-details">
-            <div>
-                <h2>{location.name}, {location.country}</h2>
-                {current.weather_descriptions.map((desc, index) => (
-                    <p key={index} className="description">{desc}</p>
-                    ))}
-                <div className="temp-section">
-                    {current.weather_icons.map((icon, index) => (
-                        <img 
-                            key={index}
-                            src={icon} 
-                            alt={current.weather_descriptions[index]} 
-                            />
-                    ))}
-                    <p className="temp">{current.temperature}<sup>o</sup>C</p>
+    if (success !== false) {
+        return (
+            <section className="weather-details">
+                <div>
+                    <h2>{location.name}, {location.country}</h2>
+                    {current.weather_descriptions.map((desc, index) => (
+                        <p key={index} className="description">{desc}</p>
+                        ))}
+                    <div className="temp-section">
+                        {current.weather_icons.map((icon, index) => (
+                            <img 
+                                key={index}
+                                src={icon} 
+                                alt={current.weather_descriptions[index]} 
+                                />
+                        ))}
+                        <p className="temp">{current.temperature}<sup>o</sup>C</p>
+                    </div>
+                    <div className="weather-details-grid">
+                        <div className="weather-details-unit">
+                            <div className="weather-details-key">
+                                <p>Wind Speed</p>
+                            </div>
+                            <div className="weather-details-value">
+                                <p>{current.wind_speed}km/h</p>
+                            </div>
+                        </div>
+                        <div className="weather-details-unit">
+                            <div className="weather-details-key">
+                                <p>Pressure</p>
+                            </div>
+                            <div className="weather-details-value">
+                                <p>{current.pressure}MB</p>
+                            </div>
+                        </div>
+                        <div className="weather-details-unit">
+                            <div className="weather-details-key">
+                                <p>Precipitation</p>
+                            </div>
+                            <div className="weather-details-value">
+                                <p>{current.precip}mm</p>
+                            </div>
+                        </div>
+                        <div className="weather-details-unit">
+                            <div className="weather-details-key">
+                                <p>Humidity</p>
+                            </div>
+                            <div className="weather-details-value">
+                                <p>{current.humidity}g/m<sup>2</sup></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="weather-btns">
+                        {isFavorite ? (
+                            <button onClick={() => removeFromFavorites()}><FontAwesomeIcon icon={faHeart} />&nbsp;Remove From Favorites</button>
+                        ) : (
+                            <button onClick={() => addToFavorites()}><FontAwesomeIcon icon={faHollowHeart} />&nbsp;Add To Favorites</button>
+                        )}
+                        <button onClick={() => toggleNotesModal(true)}><FontAwesomeIcon icon={faEye} />&nbsp;View Notes</button>
+                    </div>
                 </div>
-                <div className="weather-details-grid">
-                    <div className="weather-details-unit">
-                        <div className="weather-details-key">
-                            <p>Wind Speed</p>
-                        </div>
-                        <div className="weather-details-value">
-                            <p>{current.wind_speed}</p>
-                        </div>
-                    </div>
-                    <div className="weather-details-unit">
-                        <div className="weather-details-key">
-                            <p>Pressure</p>
-                        </div>
-                        <div className="weather-details-value">
-                            <p>{current.pressure}</p>
-                        </div>
-                    </div>
-                    <div className="weather-details-unit">
-                        <div className="weather-details-key">
-                            <p>Precipitation</p>
-                        </div>
-                        <div className="weather-details-value">
-                            <p>{current.precip}</p>
-                        </div>
-                    </div>
-                    <div className="weather-details-unit">
-                        <div className="weather-details-key">
-                            <p>Humidity</p>
-                        </div>
-                        <div className="weather-details-value">
-                            <p>{current.humidity}</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="weather-btns">
-                    {isFavorite ? (
-                        <button onClick={() => removeFromFavorites()}><FontAwesomeIcon icon={faHeart} />&nbsp;Remove From Favorites</button>
-                    ) : (
-                        <button onClick={() => addToFavorites()}><FontAwesomeIcon icon={faHollowHeart} />&nbsp;Add To Favorites</button>
-                    )}
-                    <button onClick={() => toggleNotesModal(true)}><FontAwesomeIcon icon={faEye} />&nbsp;View Notes</button>
-                </div>
-            </div>
-        </section>
-    );
+            </section>
+        );
+    } else return null;
 };
 
 export default WeatherDetails;

@@ -18,12 +18,19 @@ const SearchForm = () => {
         const searchTerm = location.split(',').map(term => term.trim()).join(',');
 
         history.push(`/weather?search=${encodeURIComponent(searchTerm)}`);
+        window.location.reload();
     };
 
     return (
         <form onSubmit={(e) => handleSearch(e)} className="search-form">
             <label htmlFor="location">Search Locations</label>
-            <input id="location" type="search" placeholder="New York, USA" onChange={(e) => setLocation(e.target.value)} value={location} />
+            <input 
+                id="location" 
+                type="search" 
+                placeholder="New York, USA" 
+                onChange={(e) => setLocation(e.target.value)} 
+                value={location} 
+                />
         </form>
     );
 };
