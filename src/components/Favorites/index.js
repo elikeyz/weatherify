@@ -5,12 +5,18 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import FavoritesContext from '../../contexts/FavoritesContext';
 
+/**
+ * The Favorites Component
+ */
 const Favorites = () => {
 
+    // Declare history object from useHistory hook
     const history = useHistory();
 
+    // Declare Favorites Context data
     const { favorites, changeFavorites } = useContext(FavoritesContext);
 
+    // Get cached Favorites from localStorage and fetch their current weather details
     useEffect(() => {
         const storedFavorites = JSON.parse(localStorage.getItem('favorites'));
 
@@ -21,12 +27,14 @@ const Favorites = () => {
             });
     }, []);
 
+    // Remove a location from Favorites
     const clearCity = (index) => {
         const updatedFavorites = [...favorites];
         updatedFavorites.splice(index, 1);
         changeFavorites(updatedFavorites);
     };
 
+    // Render Favorites if any has been added
     if (favorites.length > 0) {
         return (
             <section>

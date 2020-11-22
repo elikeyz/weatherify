@@ -8,6 +8,7 @@ import NotesModal from './components/NotesModal';
 import ModalContext from './contexts/ModalContext';
 import ModeContext from './contexts/ModeContext';
 import FavoritesContext from './contexts/FavoritesContext';
+import Error404 from './pages/Error404';
 import './App.css';
 
 /**
@@ -15,7 +16,7 @@ import './App.css';
  */
 const App = () => {
 
-  // Declare the background image and time of day style class states
+  // Declare the states
   const [backgroundImage, setBackground] = useState('/day-sky.jpg');
   const [timeClass, setTimeClass] = useState('background-image day');
   const [showNotesModal, toggleNotesModal] = useState(false);
@@ -24,19 +25,21 @@ const App = () => {
   // Set background image and style classes based on input time of day
   const setMode = (timeOfDay) => {
     if (timeOfDay === 'day') {
-      setBackground('/day-sky.jpg');
+      setBackground('/day-sky1.gif');
       setTimeClass('background-image day');
     } else if (timeOfDay === 'night') {
-      setBackground('/night-sky.jpg');
+      setBackground('/night-sky.gif');
       setTimeClass('background-image night');
     }
   };
 
+  // Declare function for updating Favorite Cities in state and localStorage
   const changeFavorites = (updatedFavorites) => {
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
     setFavorites(updatedFavorites);
   }
 
+  // Get Favorite Cities from localStorage and use it to update the state
   useEffect(() => {
     if (localStorage.getItem('favorites')) {
       const storedFavorites = JSON.parse(localStorage.getItem('favorites'));
@@ -59,8 +62,12 @@ const App = () => {
                     <Weather />
                   </Route>
 
-                  <Route path="/">
+                  <Route exact path="/">
                     <Landing />
+                  </Route>
+
+                  <Route path="*">
+                    <Error404 />
                   </Route>
                 </Switch>
                 <NotesModal show={showNotesModal} toggle={toggleNotesModal} />

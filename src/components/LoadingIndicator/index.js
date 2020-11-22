@@ -1,5 +1,8 @@
 import './LoadingIndicator.css';
 
+/**
+ * The Loading Indicator component
+ */
 const LoadingIndicator = () => {
     return (
         <div class="spin-container">

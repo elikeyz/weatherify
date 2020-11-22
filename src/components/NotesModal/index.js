@@ -3,6 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPen, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './NotesModal.css';
 
+/**
+ * The Notes Modal component
+ * @param {object} props 
+ */
 const NotesModal = (props) => {
 
     const { toggle, show } = props;
@@ -60,6 +64,7 @@ const NotesModal = (props) => {
         setShowEditForm(false);
     };
 
+    // Delete an existing note in the state and localStorage
     const deleteNote = (index) => {
         const updatedNotes = [...notes];
         updatedNotes.splice(index, 1);
@@ -67,7 +72,7 @@ const NotesModal = (props) => {
         setNotes(updatedNotes);
     };
 
-    // Render modal only if it has been toggled, otherwise render null
+    // Render modal only if it has been toggled
     if (show) {
         return (
             <div ref={modal} className="modal">

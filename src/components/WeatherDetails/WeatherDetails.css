@@ -87,3 +87,9 @@
         width: 50%;
     }
 }
+
+@media only screen and (max-height: 600px) {
+    .weather-details {
+        height: auto;
+    }
+}

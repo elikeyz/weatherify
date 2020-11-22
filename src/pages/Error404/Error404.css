@@ -1,0 +1,42 @@
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 180px);
+}
+
+.error h2 {
+    font-size: 4rem;
+}
+
+.error p {
+    font-size: 1.2rem;
+}
+
+.error a {
+    width: 45%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.night .error a {
+    background-color: #C5CAE9;
+    color: #1A237E !important;
+}
+
+.day .error a {
+    background-color: #1A237E;
+    color: #C5CAE9 !important;
+}
+
+@media only screen and (max-width: 500px) {
+    .error a {
+        width: 100%;
+    }
+}

@@ -5,10 +5,12 @@ import { faHeart as faHollowHeart } from '@fortawesome/free-regular-svg-icons';
 import ModalContext from '../../contexts/ModalContext';
 import ModeContext from '../../contexts/ModeContext';
 import FavoritesContext from '../../contexts/FavoritesContext';
+import Error404 from '../../pages/Error404';
 import './WeatherDetails.css';
 
 /**
  * The Weather Details component
+ * @param {object} props 
  */
 const WeatherDetails = ({ details }) => {
 
@@ -20,6 +22,7 @@ const WeatherDetails = ({ details }) => {
 
     const [isFavorite, setIsFavorite] = useState(false);
 
+    // Set background and theme based on time of day
     useEffect(() => {
         if (current.is_day === 'yes') {
             setMode('day');
@@ -28,6 +31,7 @@ const WeatherDetails = ({ details }) => {
         }
     }, [current.is_day, setMode]);
 
+    // Check if this location is in the Favorite Cities list and set the state accordingly
     useEffect(() => {
         const favoritesMatch = favorites.filter(fav => (fav.name === location.name) && (fav.country === location.country));
 
@@ -38,6 +42,7 @@ const WeatherDetails = ({ details }) => {
         }
     }, [location.country, location.name]);
 
+    // Add this location to Favorites
     const addToFavorites = () => {
         const updatedFavorites = [...favorites];
         updatedFavorites.push(details);
@@ -45,6 +50,7 @@ const WeatherDetails = ({ details }) => {
         setIsFavorite(true);
     };
 
+    // Remove this location from Favorites
     const removeFromFavorites = () => {
         const updatedFavorites = [...favorites];
         const index = updatedFavorites.findIndex(fav => (fav.name === location.name) && (fav.country === location.country));
@@ -53,11 +59,12 @@ const WeatherDetails = ({ details }) => {
         setIsFavorite(false);
     };
 
+    // Render weather details if gotten successfully, else return 404 page
     if (success !== false) {
         return (
             <section className="weather-details">
                 <div>
-                    <h2>{location.name}, {location.country}</h2>
+                    <h2>{location.name}, {location.region}, {location.country}</h2>
                     {current.weather_descriptions.map((desc, index) => (
                         <p key={index} className="description">{desc}</p>
                         ))}
@@ -116,7 +123,7 @@ const WeatherDetails = ({ details }) => {
                 </div>
             </section>
         );
-    } else return null;
+    } else return <Error404 />
 };
 
 export default WeatherDetails;
