@@ -28,7 +28,7 @@ const App = () => {
       setBackground('/day-sky1.gif');
       setTimeClass('background-image day');
     } else if (timeOfDay === 'night') {
-      setBackground('/night-sky.gif');
+      setBackground('/night-sky1.gif');
       setTimeClass('background-image night');
     }
   };

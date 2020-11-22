@@ -57,7 +57,7 @@ const PopularCities = () => {
             cancelToken: cancelTokenSource.token
         })))
             .then((result) => {
-                const citiesData = result.map(res => res.data);
+                const citiesData = result.filter(res => res.data.success !== false).map(res => res.data);
                 localStorage.setItem('popular-cities', JSON.stringify(citiesData));
                 setIsLoading(false);
                 setCities(citiesData);
@@ -85,24 +85,26 @@ const PopularCities = () => {
             <section>
                 <h2>Popular</h2>
                 <div className="city-grid">
-                    {cities.sort((a, b) => a.location.name.charCodeAt(0) - b.location.name.charCodeAt(0)).map((city, index) => (
-                        <div key={index} onClick={(e) => history.push(`/weather?search=${encodeURIComponent(`${city.location.name},${city.location.country}`)}`)}>
-                            <div>
-                                <button onClick={(e) => {e.stopPropagation(); clearCity(index);}}>
-                                    <FontAwesomeIcon icon={faTimes} />
-                                </button>
-                                <p>{city.location.name}</p>
-                                <div className="city-card-data">
-                                    <p>{city.current.temperature}<sup>o</sup>C</p>
-                                    {city.current.weather_icons.map((iconUrl, index) => (
-                                        <img 
-                                            key={index} 
-                                            src={iconUrl} 
-                                            alt={city.current.weather_descriptions[index]} />))}
+                    {cities.sort((a, b) => a.location.name.charCodeAt(0) - b.location.name.charCodeAt(0)).map((city, index) => {
+                        if (city.location) return (
+                            <div key={index} onClick={(e) => history.push(`/weather?search=${encodeURIComponent(`${city.location.name},${city.location.country}`)}`)}>
+                                <div>
+                                    <button onClick={(e) => {e.stopPropagation(); clearCity(index);}}>
+                                        <FontAwesomeIcon icon={faTimes} />
+                                    </button>
+                                    <p>{city.location.name}</p>
+                                    <div className="city-card-data">
+                                        <p>{city.current.temperature}<sup>o</sup>C</p>
+                                        {city.current.weather_icons.map((iconUrl, index) => (
+                                            <img 
+                                                key={index} 
+                                                src={iconUrl} 
+                                                alt={city.current.weather_descriptions[index]} />))}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ); else return null
+                    })}
                 </div>
             </section>
         );
