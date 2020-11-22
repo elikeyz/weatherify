@@ -5,4 +5,6 @@ const ModeContext = createContext({
     setMode: () => {}
 });
 
+ModeContext.displayName = 'ModeContext';
+
 export default ModeContext;

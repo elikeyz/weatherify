@@ -20,12 +20,20 @@ const Favorites = () => {
     useEffect(() => {
         const storedFavorites = JSON.parse(localStorage.getItem('favorites'));
 
-        Promise.all(storedFavorites.map(city => axios.get(`http://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${city.location.name},${city.location.country}`)))
+        const cancelTokenSource = axios.CancelToken.source();
+        Promise.all(storedFavorites.map(city => axios.get(`http://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${city.location.name},${city.location.country}`, {
+            cancelToken: cancelTokenSource.token
+        })))
             .then((result) => {
                 const citiesData = result.map(res => res.data);
                 changeFavorites(citiesData);
             });
-    }, []);
+
+        // Cancel HTTP request if user leaves the page prematurely to avoid memory leaks
+        return () => {
+            cancelTokenSource.cancel();
+        };
+    }, [changeFavorites]);
 
     // Remove a location from Favorites
     const clearCity = (index) => {

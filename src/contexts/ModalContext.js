@@ -6,4 +6,6 @@ const ModalContext = createContext({
     toggleNotesModal: () => {}
 });
 
+ModalContext.displayName = 'ModalContext';
+
 export default ModalContext;

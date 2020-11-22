@@ -33,14 +33,12 @@ const WeatherDetails = ({ details }) => {
 
     // Check if this location is in the Favorite Cities list and set the state accordingly
     useEffect(() => {
-        const favoritesMatch = favorites.filter(fav => (fav.name === location.name) && (fav.country === location.country));
+        const favoritesMatch = favorites.filter(fav => (fav.location.name === location.name) && (fav.location.country === location.country));
 
-        if (favoritesMatch.length < 0) {
+        if (favoritesMatch.length > 0) {
             setIsFavorite(true);
-        } else {
-            setIsFavorite(false);
         }
-    }, [location.country, location.name]);
+    }, [location.country, location.name, favorites]);
 
     // Add this location to Favorites
     const addToFavorites = () => {

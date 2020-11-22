@@ -13,6 +13,7 @@ const Weather = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        const cancelTokenSource = axios.CancelToken.source();
         if (window.location.search) {
             //Show loading indicator
             setIsLoading(true);
@@ -34,10 +35,18 @@ const Weather = () => {
             }
 
             // Request for current data and display if found, also remove loading indicator if it is still visible
-            axios.get(`http://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${searchTerm}`).then(result => {
+            
+            axios.get(`http://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${searchTerm}`, {
+                cancelToken: cancelTokenSource.token
+            }).then(result => {
                 setIsLoading(false);
                 setDetails(result.data);
             });
+        }
+
+        // Cancel HTTP request if user leaves the page prematurely to avoid memory leaks
+        return () => {
+            cancelTokenSource.cancel();
         }
     }, []);
 

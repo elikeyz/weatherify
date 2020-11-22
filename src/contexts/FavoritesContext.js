@@ -6,4 +6,6 @@ const FavoritesContext = createContext({
     changeFavorites: () => {}
 });
 
+FavoritesContext.displayName = 'FavoritesContext';
+
 export default FavoritesContext;

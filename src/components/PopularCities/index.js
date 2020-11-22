@@ -52,13 +52,21 @@ const PopularCities = () => {
         }
 
         // Get the weather details of the 15 popular cities and store their results in the state and localStorage, then remove the loading indicator if it is still showing.
-        Promise.all(defaultCities.map(city => axios.get(`http://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${city}`)))
+        const cancelTokenSource = axios.CancelToken.source();
+        Promise.all(defaultCities.map(city => axios.get(`http://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${city}`, { 
+            cancelToken: cancelTokenSource.token
+        })))
             .then((result) => {
                 const citiesData = result.map(res => res.data);
                 localStorage.setItem('popular-cities', JSON.stringify(citiesData));
                 setIsLoading(false);
                 setCities(citiesData);
             });
+
+        // Cancel HTTP request if user leaves the page prematurely to avoid memory leaks
+        return () => {
+            cancelTokenSource.cancel();
+        }
     }, []);
 
     // Remove a city from the list
