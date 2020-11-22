@@ -36,7 +36,7 @@ const Weather = () => {
 
             // Request for current data and display if found, also remove loading indicator if it is still visible
             
-            axios.get(`http://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${searchTerm}`, {
+            axios.get(`https://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${searchTerm}`, {
                 cancelToken: cancelTokenSource.token
             }).then(result => {
                 setIsLoading(false);
