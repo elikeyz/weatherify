@@ -39,9 +39,13 @@
     padding: 10px;
     border: none;
     border-radius: 5px;
-    margin: 10px 0;
+    margin: 10px 10px 0 0;
     cursor: pointer;
     color: white !important;
+}
+
+.modal-content .cancel-btn {
+    background-color: #F44336;
 }
 
 .modal-content form {

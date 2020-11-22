@@ -85,25 +85,31 @@ const NotesModal = (props) => {
                     {!showForm && !showEditForm && <button onClick={() => setShowForm(true)}><FontAwesomeIcon icon={faPlus} />&nbsp;Add Note</button>}
                     {/* Show Add Note form if it is toggled */}
                     {showForm && (
-                        <form onSubmit={() => addNewNote()}>
+                        <form onSubmit={() => addNewNote()} onReset={() => setShowForm(false)}>
                             <textarea 
                                 ref={textInput} 
                                 aria-label="New Note" 
                                 value={newNote} 
                                 onChange={e => {e.preventDefault(); setNewNote(e.target.value)}} 
                                 />
-                            <button>Submit</button>
+                            <div>
+                                <button type="submit">Add Note</button>
+                                <button className="cancel-btn" type="reset">Cancel</button>
+                            </div>
                         </form>
                     )}
                     {/* Show Edit Note form if it is toggled */}
                     {showEditForm && (
-                        <form onSubmit={() => editNote()}>
+                        <form onSubmit={() => editNote()} onReset={() => setShowEditForm(false)}>
                             <textarea  
-                                aria-label="New Note" 
+                                aria-label="Edit Note" 
                                 value={existingNote} 
                                 onChange={e => {e.preventDefault(); setExistingNote(e.target.value)}} 
                                 />
-                            <button>Submit</button>
+                            <div>
+                                <button type="submit">Edit Note</button>
+                                <button className="cancel-btn" type="reset">Cancel</button>
+                            </div>
                         </form>
                     )}
                     <section>
