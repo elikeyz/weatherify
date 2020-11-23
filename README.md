@@ -42,7 +42,12 @@ The application has offline capability with the exception of the Search Function
 ## Installation
 To install the application,
 - Clone this repository
-- Run `yarn install`
+- Run `yarn install` to install the dependencies
+- Run `npm start` to run the application in development mode.
+- Run `npm run build` to create a production build.
+
+## Live Application
+The application is currently hosted at https://weatherify1.netlify.app.
 
 ## Possible Future Improvements
 - Getting Weather Forecast data for at least the next 5 days for any location searched.
