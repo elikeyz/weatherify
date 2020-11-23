@@ -28,7 +28,7 @@ const SearchForm = () => {
 
     // Render the search form
     return (
-        <form onSubmit={(e) => handleSearch(e)} className="search-form">
+        <form data-testid="search-form" onSubmit={(e) => handleSearch(e)} className="search-form">
             <label htmlFor="location">Search Locations</label>
             <input 
                 id="location" 

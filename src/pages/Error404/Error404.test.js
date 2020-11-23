@@ -1,15 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Header from './index';
+import Error404 from './index';
 
-describe('Header', () => {
+describe('Error404', () => {
   test('renders header', () => {
     render(
       <MemoryRouter>
-        <Header />
+        <Error404 />
       </MemoryRouter>
     );
-    const headerBadge = screen.getByText(/Weatherify/i);
-    expect(headerBadge).toBeInTheDocument();
+    const title = screen.getByText(/Oops/i);
+    expect(title).toBeInTheDocument();
   });
 });

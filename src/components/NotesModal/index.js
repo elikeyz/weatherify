@@ -75,7 +75,7 @@ const NotesModal = (props) => {
     // Render modal only if it has been toggled
     if (show) {
         return (
-            <div ref={modal} className="modal">
+            <div data-testid="notes-modal" ref={modal} className="modal">
                 <div className="modal-content">
                     <button className="modal-close" onClick={() => toggle(false)}>
                         <FontAwesomeIcon icon={faTimes} />
@@ -85,7 +85,7 @@ const NotesModal = (props) => {
                     {!showForm && !showEditForm && <button onClick={() => setShowForm(true)}><FontAwesomeIcon icon={faPlus} />&nbsp;Add Note</button>}
                     {/* Show Add Note form if it is toggled */}
                     {showForm && (
-                        <form onSubmit={() => addNewNote()} onReset={() => setShowForm(false)}>
+                        <form data-testid="new-form" onSubmit={() => addNewNote()} onReset={() => setShowForm(false)}>
                             <textarea 
                                 ref={textInput} 
                                 aria-label="New Note" 
@@ -100,7 +100,7 @@ const NotesModal = (props) => {
                     )}
                     {/* Show Edit Note form if it is toggled */}
                     {showEditForm && (
-                        <form onSubmit={() => editNote()} onReset={() => setShowEditForm(false)}>
+                        <form data-testid="edit-form" onSubmit={() => editNote()} onReset={() => setShowEditForm(false)}>
                             <textarea  
                                 aria-label="Edit Note" 
                                 value={existingNote} 
@@ -113,20 +113,25 @@ const NotesModal = (props) => {
                         </form>
                     )}
                     <section>
+                        {/* Show this if no notes have been added */}
                     {
                         (notes.length < 1) && <p>You have not added any notes yet</p>
                     }
                     {/* Render all the existing notes here */}
                     {
-                        notes.map((note, noteIndex) => (
-                            <article key={noteIndex}>
-                                <div className="ctrl-btns">
-                                    <button onClick={() => handleEditNote(noteIndex)}><FontAwesomeIcon icon={faPen} /></button>
-                                    <button onClick={() => deleteNote(noteIndex)}><FontAwesomeIcon icon={faTrash} /></button>
-                                </div>
-                                <p>{note}</p>
-                            </article>
-                        ))
+                            notes.map((note, noteIndex) => {
+                                const editTestId = `edit-${noteIndex}-note`;
+                                const deleteTestId = `delete-${noteIndex}-note`;
+                                return (
+                                <article key={noteIndex}>
+                                    <div className="ctrl-btns">
+                                            <button data-testid={editTestId} aria-label="Edit Button" onClick={() => handleEditNote(noteIndex)}><FontAwesomeIcon icon={faPen} /></button>
+                                            <button data-testid={deleteTestId} aria-label="Delete Button" onClick={() => deleteNote(noteIndex)}><FontAwesomeIcon icon={faTrash} /></button>
+                                    </div>
+                                    <p>{note}</p>
+                                </article>
+                                );
+                            })
                     }
                     </section>
                 </div>
