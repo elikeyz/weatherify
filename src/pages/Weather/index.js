@@ -10,13 +10,11 @@ import Error404 from '../../pages/Error404';
 const Weather = () => {
 
     const [details, setDetails] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const cancelTokenSource = axios.CancelToken.source();
         if (window.location.search) {
-            //Show loading indicator
-            setIsLoading(true);
 
             // Get search params from URL
             const urlParams = new URLSearchParams(window.location.search);
@@ -41,6 +39,9 @@ const Weather = () => {
             }).then(result => {
                 setIsLoading(false);
                 setDetails(result.data);
+            }).catch((err) => {
+                setIsLoading(false);
+                console.error(err);
             });
         }
 

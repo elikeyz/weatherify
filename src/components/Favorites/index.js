@@ -23,6 +23,9 @@ const Favorites = () => {
                 .then((result) => {
                     const citiesData = result.filter(res => res.data.success !== false).map(res => res.data);
                     changeFavorites(citiesData);
+                })
+                .catch((err) => {
+                    console.error(err);
                 });
         }
 

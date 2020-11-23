@@ -30,12 +30,10 @@ const PopularCities = () => {
 
     // Declare the cities state
     const [cities, setCities] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     //Get stored cities from local storage if available, otherwise, store the default 15 cities.
     useEffect(() => {
-        // Display loading indicator
-        setIsLoading(true);
 
         // Get cached Popular Cities from localStorage, if found display them and remove the loading indicator
         if (!!localStorage.getItem('popular-cities')) {
@@ -56,6 +54,10 @@ const PopularCities = () => {
                 localStorage.setItem('popular-cities', JSON.stringify(citiesData));
                 setIsLoading(false);
                 setCities(citiesData);
+            })
+            .catch((err) => {
+                setIsLoading(false);
+                console.error(err);
             });
 
         // Cancel HTTP request if user leaves the page prematurely to avoid memory leaks
