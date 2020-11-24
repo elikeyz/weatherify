@@ -50,10 +50,12 @@ const PopularCities = () => {
             cancelToken: cancelTokenSource.token
         })))
             .then((result) => {
-                const citiesData = result.filter(res => res.data.success !== false).map(res => res.data);
-                localStorage.setItem('popular-cities', JSON.stringify(citiesData));
-                setIsLoading(false);
-                setCities(citiesData);
+                const citiesData = result.filter(res => res.status === 200 && res.data.success !== false).map(res => res.data);
+                if (citiesData.length > 0) {
+                    localStorage.setItem('popular-cities', JSON.stringify(citiesData));
+                    setIsLoading(false);
+                    setCities(citiesData);
+                }
             })
             .catch((err) => {
                 setIsLoading(false);

@@ -17,12 +17,14 @@ const Favorites = () => {
 
         const cancelTokenSource = axios.CancelToken.source();
         if (storedFavorites && storedFavorites.length > 0) {
+            changeFavorites(storedFavorites);
+
             Promise.all(storedFavorites.map(city => axios.get(`https://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${city.location.name},${city.location.country}`, {
                 cancelToken: cancelTokenSource.token
             })))
                 .then((result) => {
-                    const citiesData = result.filter(res => res.data.success !== false).map(res => res.data);
-                    changeFavorites(citiesData);
+                    const citiesData = result.filter(res => res.status === 200 && res.data.success !== false).map(res => res.data);
+                    if (citiesData.length > 0) changeFavorites(citiesData);
                 })
                 .catch((err) => {
                     console.error(err);

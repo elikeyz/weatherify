@@ -19,6 +19,15 @@ describe('NotesModal', () => {
     expect(noNotesText).toBeVisible();
   });
 
+  test('hides modal when toggled false', () => {
+    render(<NotesModal show={false} />);
+
+    const modal = screen.queryAllByTestId('notes-modal');
+    const noNotesText = screen.queryAllByText(/You have not added any notes yet/i);
+    expect(modal.length).toEqual(0);
+    expect(noNotesText.length).toEqual(0);
+  });
+
   test('should display Add Note form when Add Note button is clicked', () => {
     const { getByText, getByTestId } = render(<NotesModal show={true} />);
 
