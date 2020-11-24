@@ -8,7 +8,7 @@ describe('WeatherDetails', () => {
 
     const mockChangeFavorites = jest.fn();
     const mockSetMode = jest.fn();
-    const mockToggleNotesModal = jest.fn()
+    const mockToggleNotesModal = jest.fn();
 
     const mockDetails = {
         "request": {

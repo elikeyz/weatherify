@@ -37,8 +37,8 @@ const Weather = () => {
             axios.get(`https://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${searchTerm}`, {
                 cancelToken: cancelTokenSource.token
             }).then(result => {
+                setIsLoading(false);
                 if (result.status === 200) {
-                    setIsLoading(false);
                     setDetails(result.data);
                 }
             }).catch((err) => {
