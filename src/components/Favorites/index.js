@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import axios from 'axios';
 import FavoritesContext from '../../contexts/FavoritesContext';
 import CityGrid from '../CityGrid';
@@ -10,6 +10,7 @@ const Favorites = () => {
 
     // Declare Favorites Context data
     const { favorites, changeFavorites } = useContext(FavoritesContext);
+    const [myFavorites, setMyFavorites] = useState([]);
 
     // Get cached Favorites from localStorage and fetch their current weather details
     useEffect(() => {
@@ -17,14 +18,17 @@ const Favorites = () => {
 
         const cancelTokenSource = axios.CancelToken.source();
         if (storedFavorites && storedFavorites.length > 0) {
-            changeFavorites(storedFavorites);
+            setMyFavorites(storedFavorites);
 
             Promise.all(storedFavorites.map(city => axios.get(`https://api.weatherstack.com/current?access_key=${process.env.REACT_APP_API_KEY}&query=${city.location.name},${city.location.country}`, {
                 cancelToken: cancelTokenSource.token
             })))
                 .then((result) => {
                     const citiesData = result.filter(res => res.status === 200 && res.data.success !== false).map(res => res.data);
-                    if (citiesData.length > 0) changeFavorites(citiesData);
+                    if (citiesData.length > 0) {
+                        changeFavorites(citiesData);
+                        setMyFavorites(citiesData);
+                    }
                 })
                 .catch((err) => {
                     console.error(err);
@@ -41,6 +45,7 @@ const Favorites = () => {
     const clearCity = (index) => {
         const updatedFavorites = [...favorites];
         updatedFavorites.splice(index, 1);
+        setMyFavorites(updatedFavorites);
         changeFavorites(updatedFavorites);
     };
 
@@ -49,7 +54,7 @@ const Favorites = () => {
         return (
             <section>
                 <h2>Favorites</h2>
-                <CityGrid cities={favorites} clearCity={clearCity} />
+                <CityGrid cities={myFavorites} clearCity={clearCity} />
             </section>
         );
     } else return null;

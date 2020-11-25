@@ -63,6 +63,7 @@ const WeatherDetails = ({ details }) => {
             <section className="weather-details">
                 <div>
                     <h2>{location.name}, {location.region}, {location.country}</h2>
+                    <p>{new Date(location.localtime).toDateString()}, {new Date(location.localtime).toLocaleTimeString()}</p>
                     {current.weather_descriptions.map((desc, index) => (
                         <p key={index} className="description">{desc}</p>
                         ))}
