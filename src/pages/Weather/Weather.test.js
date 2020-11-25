@@ -12,6 +12,8 @@ describe('Weather', () => {
     const mockSetMode = jest.fn();
     const mockToggleNotesModal = jest.fn();
 
+  const originalWindow = global.window;
+
     const mockDetails = {
         "request": {
           "type": "City",
@@ -63,7 +65,24 @@ describe('Weather', () => {
       });
 
       beforeEach(() => {
-          window.location.search = '?search=London,UK';
+
+        global.window = Object.create(window);
+        const search = "?search=London,UK";
+        Object.defineProperty(window, 'location', {
+          value: {
+            search
+          }
+        });
+
+        Object.defineProperty(window, 'localStorage', {
+          value: {
+            getItem: () => JSON.stringify([mockDetails])
+          }
+        });
+      });
+
+  afterEach(() => {
+    global.window = originalWindow;
       });
 
       afterEach(cleanup);
@@ -86,7 +105,7 @@ describe('Weather', () => {
             </MemoryRouter>
         );
 
-        await waitFor(() => expect(getByText('London, City of London, Greater London, United Kingdom')).toBeInTheDocument());
+        await waitFor(() => expect(getByText('London, City of London, Greater London, United Kingdom')).toBeVisible());
         await waitFor(() => expect(getByAltText('Light Rain')).toBeVisible());
       });
 
@@ -108,6 +127,6 @@ describe('Weather', () => {
             </MemoryRouter>
         );
 
-        await waitFor(() => expect(getByText(/Oops/i)).toBeInTheDocument());
+        await waitFor(() => expect(getByText(/Oops/i)).toBeVisible());
       });
 });

@@ -19,7 +19,7 @@ const Favorites = () => {
         if (storedFavorites && storedFavorites.length > 0) {
             changeFavorites(storedFavorites);
 
-            Promise.all(storedFavorites.map(city => axios.get(`https://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${city.location.name},${city.location.country}`, {
+            Promise.all(storedFavorites.map(city => axios.get(`https://api.weatherstack.com/current?access_key=${process.env.REACT_APP_API_KEY}&query=${city.location.name},${city.location.country}`, {
                 cancelToken: cancelTokenSource.token
             })))
                 .then((result) => {

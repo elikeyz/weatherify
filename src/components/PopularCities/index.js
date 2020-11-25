@@ -46,7 +46,7 @@ const PopularCities = () => {
 
         // Get the weather details of the 15 popular cities and store their results in the state and localStorage, then remove the loading indicator if it is still showing.
         const cancelTokenSource = axios.CancelToken.source();
-        Promise.all(defaultCities.map(city => axios.get(`https://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${city}`, { 
+        Promise.all(defaultCities.map(city => axios.get(`https://api.weatherstack.com/current?access_key=${process.env.REACT_APP_API_KEY}&query=${city}`, { 
             cancelToken: cancelTokenSource.token
         })))
             .then((result) => {

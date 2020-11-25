@@ -10,11 +10,12 @@ import Error404 from '../../pages/Error404';
 const Weather = () => {
 
     const [details, setDetails] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const cancelTokenSource = axios.CancelToken.source();
         if (window.location.search) {
+            setIsLoading(true);
 
             // Get search params from URL
             const urlParams = new URLSearchParams(window.location.search);
@@ -34,7 +35,7 @@ const Weather = () => {
 
             // Request for current data and display if found, also remove loading indicator if it is still visible
             
-            axios.get(`https://api.weatherstack.com/current?access_key=b49788cab88c05f33ce5464abe60ff07&query=${searchTerm}`, {
+            axios.get(`https://api.weatherstack.com/current?access_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}`, {
                 cancelToken: cancelTokenSource.token
             }).then(result => {
                 setIsLoading(false);
