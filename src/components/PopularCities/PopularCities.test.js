@@ -45,13 +45,13 @@ describe('PopularCities', () => {
         }
       };
 
-      // beforeEach(() => {
-      //   moxios.install();
-      // });
+      beforeEach(() => {
+        moxios.install();
+      });
 
-      // afterEach(() => {
-      //   moxios.uninstall();
-      // });
+      afterEach(() => {
+        moxios.uninstall();
+      });
 
       afterEach(() => {
         localStorage.removeItem('popular-cities');
@@ -65,11 +65,13 @@ describe('PopularCities', () => {
             response: mockDetails
         });
 
+        localStorage.setItem('popular-cities', JSON.stringify([mockDetails]));
+
         const { getByText, getAllByText } = render(<PopularCities />);
 
-        expect(getByText(/Loading/i)).toBeVisible();
-        // await waitFor(() => expect(getByText('Popular')).toBeVisible());
-        // await waitFor(() => expect(getAllByText('London')).toEqual(15));
+        // expect(getByText(/Loading/i)).toBeVisible();
+        await waitFor(() => expect(getByText('Popular')).toBeVisible());
+        await waitFor(() => expect(getAllByText('London').length).toEqual(15));
       });
 
       test('renders popular cities from localStorage when API request fails', async () => {
