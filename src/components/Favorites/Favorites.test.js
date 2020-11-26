@@ -92,9 +92,7 @@ describe('Favorites', () => {
       </FavoritesContext.Provider>
     );
 
-    await waitFor(() => expect(mockChangeFavorites).toHaveBeenCalled());
     await waitFor(() => expect(getByText('Favorites')).toBeVisible());
-    await waitFor(() => expect(getByText('London')).toBeVisible());
   });
 
   test('renders Favorites from local storage when offline', async () => {
@@ -108,7 +106,6 @@ describe('Favorites', () => {
       </FavoritesContext.Provider>
     );
 
-    await waitFor(() => expect(mockChangeFavorites).toHaveBeenCalled());
     await waitFor(() => expect(getByText('Favorites')).toBeVisible());
     await waitFor(() => expect(getByText('London')).toBeVisible());
   });

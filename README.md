@@ -43,6 +43,11 @@ The application has offline capability with the exception of the Search Function
 To install the application,
 - Clone this repository
 - Run `yarn install` to install the dependencies
+- Create a free WeatherStack account to get the API key.
+- Create a `.env` file and store the API key as an environmental variable.
+```
+REACT_APP_API_KEY=xxxxxxxxxxxx
+```
 - Run `npm start` to run the application in development mode.
 - Run `npm run build` to create a production build.
 
