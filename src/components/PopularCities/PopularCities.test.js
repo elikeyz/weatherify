@@ -69,7 +69,6 @@ describe('PopularCities', () => {
 
         const { getByText, getAllByText } = render(<PopularCities />);
 
-        // expect(getByText(/Loading/i)).toBeVisible();
         await waitFor(() => expect(getByText('Popular')).toBeVisible());
         await waitFor(() => expect(getAllByText('London').length).toEqual(15));
       });
