@@ -115,7 +115,7 @@ describe('Weather', () => {
             response: {}
         });
 
-        const { getByText } = render(
+        const { queryByText, queryByAltText } = render(
             <MemoryRouter>
                 <FavoritesContext.Provider value={{ favorites: [], changeFavorites: mockChangeFavorites}}>
                     <ModeContext.Provider value={mockSetMode}>
@@ -127,6 +127,7 @@ describe('Weather', () => {
             </MemoryRouter>
         );
 
-        await waitFor(() => expect(getByText(/Oops/i)).toBeVisible());
+        await waitFor(() => expect(queryByText('London, City of London, Greater London, United Kingdom')).not.toBeVisible());
+        await waitFor(() => expect(queryByAltText('Light Rain')).not.toBeVisible());
       });
 });

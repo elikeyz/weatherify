@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Landing from './pages/Landing';
@@ -17,7 +17,7 @@ import './App.css';
 const App = () => {
 
   // Declare the states
-  const [backgroundImage, setBackground] = useState('/day-sky.jpg');
+  const [backgroundImage, setBackground] = useState('/day-sky1.gif');
   const [timeClass, setTimeClass] = useState('background-image day');
   const [showNotesModal, toggleNotesModal] = useState(false);
   const [favorites, setFavorites] = useState([]);

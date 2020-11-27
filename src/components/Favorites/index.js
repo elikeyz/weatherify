@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import axios from 'axios';
 import FavoritesContext from '../../contexts/FavoritesContext';
 import CityGrid from '../CityGrid';

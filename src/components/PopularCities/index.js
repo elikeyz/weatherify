@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import LoadingIndicator from '../LoadingIndicator';
 import CityGrid from '../CityGrid';
 import axios from 'axios';

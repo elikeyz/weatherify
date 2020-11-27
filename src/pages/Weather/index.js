@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import WeatherDetails from '../../components/WeatherDetails';
 import LoadingIndicator from '../../components/LoadingIndicator';
-import Error404 from '../../pages/Error404';
+import Error404 from '../Error404';
 
 /**
  * The Weather page
@@ -60,9 +60,7 @@ const Weather = () => {
         return <LoadingIndicator />;
     } else if (Object.keys(details).length > 0 && details.success !== false) {
         return <WeatherDetails details={details} />;
-    } else {
-        return <Error404 />;
-    }
+    } else return <Error404 />
 };
 
 export default Weather;

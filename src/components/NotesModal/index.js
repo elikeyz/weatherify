@@ -1,4 +1,4 @@
-import { useState, useEffect, createRef } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPen, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './NotesModal.css';

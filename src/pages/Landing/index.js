@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PopularCities from '../../components/PopularCities';
 import ModeContext from '../../contexts/ModeContext';
@@ -27,7 +27,7 @@ const Landing = () => {
     // Request permission to get user's location
     // If granted, navigate to the Weather Details Page and display the weather for the user's location
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition((location) => {
+        if (navigator.onLine) navigator.geolocation.getCurrentPosition((location) => {
             if (location) {
                 history.push(`/weather?search=${encodeURIComponent(`${location.coords.latitude},${location.coords.longitude}`)}`);
             }
