@@ -116,7 +116,7 @@ describe('Weather', () => {
             response: {}
         });
 
-        const { queryByText, queryByAltText, getByText } = render(
+        const { getByText } = render(
             <MemoryRouter>
                 <FavoritesContext.Provider value={{ favorites: [], changeFavorites: mockChangeFavorites}}>
                     <ModeContext.Provider value={mockSetMode}>
