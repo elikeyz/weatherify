@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import WeatherDetails from './index';
 import ModeContext from '../../contexts/ModeContext';

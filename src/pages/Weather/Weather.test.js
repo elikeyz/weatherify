@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, waitFor, cleanup } from '@testing-library/react';
 import moxios from 'moxios';
 import { MemoryRouter } from 'react-router-dom';
@@ -115,7 +116,7 @@ describe('Weather', () => {
             response: {}
         });
 
-        const { queryByText, queryByAltText } = render(
+        const { queryByText, queryByAltText, getByText } = render(
             <MemoryRouter>
                 <FavoritesContext.Provider value={{ favorites: [], changeFavorites: mockChangeFavorites}}>
                     <ModeContext.Provider value={mockSetMode}>
@@ -127,7 +128,6 @@ describe('Weather', () => {
             </MemoryRouter>
         );
 
-        await waitFor(() => expect(queryByText('London, City of London, Greater London, United Kingdom')).not.toBeVisible());
-        await waitFor(() => expect(queryByAltText('Light Rain')).not.toBeVisible());
+        await waitFor(() => expect(getByText(/Oops/i)).toBeVisible());
       });
 });
