@@ -8,27 +8,27 @@ It is typically shown in two different modes, depending on the time of day of th
 
 When you navigate to the application, you initially see a screen showing you the 15 most populated cities in the world according to [The World Population Review](https://worldpopulationreview.com/world-cities) at November 2020. You also see locations you have previously added to your favorites all with their current temperatures.
 
-![Landing Page](https://user-images.githubusercontent.com/38543445/99909909-73ff9b00-2ceb-11eb-8acc-6e8d5e760754.png)
+![Landing Page](https://user-images.githubusercontent.com/38543445/100626440-1c35e500-3326-11eb-9f47-44fbfa593212.png)
 
 Also on the Landing Page, you will get a popup asking for your permission to get your location.
 
-![Location Permission](https://user-images.githubusercontent.com/38543445/99909941-9ee9ef00-2ceb-11eb-9799-586cc59e3857.png)
+![Location Permission](https://user-images.githubusercontent.com/38543445/100626701-7040c980-3326-11eb-9f56-fd46174e62d6.png)
 
-If the permission is granted, you will be taken to the weather details page immediately to view the weather details of your current location.
+If the permission is granted, you will be taken to the weather details page immediately to view the weather details of your current location. You will also see a button below the form that takes you to the weather details page to view the weather of your current location.
 
-![Weather Details](https://user-images.githubusercontent.com/38543445/99909972-ce006080-2ceb-11eb-9dae-611412b00982.png)
+![Weather Details](https://user-images.githubusercontent.com/38543445/100626831-949ca600-3326-11eb-9e43-d2e7a894a04d.png)
 
 The Weather Details page shows you the current weather condition of any location you search for on the search form at the top-right corner of the screen. There you can add/remove the location to/from your favorites and you can also open the notes modal to view your notes.
 
-![View Notes](https://user-images.githubusercontent.com/38543445/99910026-26cff900-2cec-11eb-8214-08c86fe90a87.png)
+![View Notes](https://user-images.githubusercontent.com/38543445/100627100-e1807c80-3326-11eb-8290-b88f0e403c40.png)
 
-Here, you can view the notes you have previously taken down and you can click the Add Note button to open a form to add a new note.
+Here, you can view the notes you have previously taken down and you can click the Add Note button to open a form to add a new note. You can add notes for a specific location or globally.
 
-![Add Note](https://user-images.githubusercontent.com/38543445/99910082-64cd1d00-2cec-11eb-8caf-44ff343f80a3.png)
+![Add Note](https://user-images.githubusercontent.com/38543445/100627237-0e349400-3327-11eb-9f98-0078cc005ae0.png)
 
 After adding a note, you can also edit or delete the note.
 
-![Edit Note](https://user-images.githubusercontent.com/38543445/99910136-af4e9980-2cec-11eb-9087-be0bd3ce395e.png)
+![Edit Note](https://user-images.githubusercontent.com/38543445/100627406-43d97d00-3327-11eb-922f-6012a7dc2c55.png)
 
 The application has offline capability with the exception of the Search Functionality. All other fetched resources are cached in the local storage.
 
