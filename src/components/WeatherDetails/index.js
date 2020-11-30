@@ -24,12 +24,13 @@ const WeatherDetails = ({ details }) => {
 
     // Set background and theme based on time of day
     useEffect(() => {
-        if (current.is_day === 'yes') {
+        const date = new Date(location.localtime);
+        if (date.getHours() > 5 && date.getHours() < 19) {
             setMode('day');
-        } else if (current.is_day === 'no') {
+        } else {
             setMode('night');
         }
-    }, [current.is_day, setMode]);
+    }, [location.localtime, setMode]);
 
     // Check if this location is in the Favorite Cities list and set the state accordingly
     useEffect(() => {
@@ -51,7 +52,7 @@ const WeatherDetails = ({ details }) => {
     // Remove this location from Favorites
     const removeFromFavorites = () => {
         const updatedFavorites = [...favorites];
-        const index = updatedFavorites.findIndex(fav => (fav.name === location.name) && (fav.country === location.country));
+        const index = updatedFavorites.findIndex(fav => (fav.location.name === location.name) && (fav.location.country === location.country));
         updatedFavorites.splice(index, 1);
         changeFavorites(updatedFavorites);
         setIsFavorite(false);

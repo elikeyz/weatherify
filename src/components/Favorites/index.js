@@ -54,7 +54,7 @@ const Favorites = () => {
         return (
             <section>
                 <h2>Favorites</h2>
-                <CityGrid cities={myFavorites} clearCity={clearCity} />
+                <CityGrid type="favorites" cities={myFavorites} clearCity={clearCity} />
             </section>
         );
     } else return null;

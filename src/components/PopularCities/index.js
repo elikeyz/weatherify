@@ -83,7 +83,7 @@ const PopularCities = () => {
         return (
             <section>
                 <h2>Popular</h2>
-                <CityGrid cities={cities} clearCity={clearCity} />
+                <CityGrid type="popular" cities={cities} clearCity={clearCity} />
             </section>
         );
     }

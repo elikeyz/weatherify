@@ -16,7 +16,7 @@ section h2 {
   width: 30%;
   margin: 10px;
   box-shadow: 1px 1px 3px 2px rgba(0,0,0,0.2);
-  padding: 10px;
+  padding: 5px;
   box-sizing: border-box;
   text-decoration: none;
   cursor: pointer;
@@ -33,12 +33,18 @@ section h2 {
   align-items: center;
   justify-content: space-between;
   position: relative;
+  padding-top: 10px;
 }
 
-.city-grid > div > div button {
+.city-grid > div > div .btns {
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.city-grid > div > div .btns button {
   background-color: inherit;
   border: none;
   cursor: pointer;
