@@ -23,9 +23,32 @@
     font-size: 1.2rem;
 }
 
+.location-btn {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.night .location-btn {
+    background-color: #C5CAE9;
+    color: #1A237E !important;
+}
+
+.day .location-btn {
+    background-color: #1A237E;
+    color: #C5CAE9 !important;
+}
+
 @media only screen and (max-width: 500px) {
     .search-form {
         flex-direction: column;
+    }
+
+    .search-form input {
+        margin-left: 0;
     }
 
     .search-form label {

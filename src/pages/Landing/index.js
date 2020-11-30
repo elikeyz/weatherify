@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import PopularCities from '../../components/PopularCities';
 import ModeContext from '../../contexts/ModeContext';
 import Favorites from '../../components/Favorites';
+import InitialLoadContext from '../../contexts/InitialLoadContext';
 import './Landing.css';
 
 /**
@@ -11,6 +12,7 @@ import './Landing.css';
 const Landing = () => {
 
     const setMode = useContext(ModeContext);
+    const { initialLoad, toggleInitialLoad } = useContext(InitialLoadContext);
 
     const history = useHistory();
 
@@ -28,7 +30,8 @@ const Landing = () => {
     // If granted, navigate to the Weather Details Page and display the weather for the user's location
     useEffect(() => {
         if (navigator.onLine) navigator.geolocation.getCurrentPosition((location) => {
-            if (location) {
+            if (location && initialLoad) {
+                toggleInitialLoad();
                 history.push(`/weather?search=${encodeURIComponent(`${location.coords.latitude},${location.coords.longitude}`)}`);
             }
         });

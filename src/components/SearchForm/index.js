@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarker } from '@fortawesome/free-solid-svg-icons';
+import InitialLoadContext from '../../contexts/InitialLoadContext';
 import './SearchForm.css';
 
 /**
@@ -9,6 +12,8 @@ const SearchForm = () => {
 
     // Declare the location field input value state.
     const [location, setLocation] = useState('');
+
+    const { initialLoad } = useContext(InitialLoadContext);
 
     // Declare History object using useHistory hook
     const history = useHistory();
@@ -26,18 +31,31 @@ const SearchForm = () => {
         window.location.reload();
     };
 
+    const getMyLocation = () => {
+        navigator.geolocation.getCurrentPosition((location) => {
+            history.push(`/weather?search=${encodeURIComponent(`${location.coords.latitude},${location.coords.longitude}`)}`);
+        });
+    };
+
     // Render the search form
     return (
-        <form data-testid="search-form" onSubmit={(e) => handleSearch(e)} className="search-form">
-            <label htmlFor="location">Search Locations</label>
-            <input 
-                id="location" 
-                type="search" 
-                placeholder="New York, USA" 
-                onChange={(e) => setLocation(e.target.value)} 
-                value={location} 
-                />
-        </form>
+        <>
+            <form data-testid="search-form" onSubmit={(e) => handleSearch(e)} className="search-form">
+                <label htmlFor="location">Search Locations</label>
+                <input 
+                    id="location" 
+                    type="search" 
+                    placeholder="New York, USA" 
+                    onChange={(e) => setLocation(e.target.value)} 
+                    value={location} 
+                    />
+            </form>
+            {!initialLoad && (
+                <div className="search-form">
+                    <button onClick={() => getMyLocation()} className="location-btn"><FontAwesomeIcon icon={faMapMarker} />&nbsp;Get My Current Location</button>
+                </div>
+            )}
+        </>
     );
 };
 

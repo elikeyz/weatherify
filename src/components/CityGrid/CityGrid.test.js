@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import FavoritesContext from '../../contexts/FavoritesContext';
 import CityGrid from './index';
 
 const mockCities = [
@@ -55,7 +56,11 @@ describe('CityGrid', () => {
   }));
 
   test('renders CityGrid', () => {
-    const { getByText } = render(<CityGrid cities={mockCities} clearCity={jest.fn()} />);
+    const { getByText } = render(
+      <FavoritesContext.Provider value={{ favorites: mockCities, changeFavorites: jest.fn() }}>
+        <CityGrid type="popular" cities={mockCities} clearCity={jest.fn()} />
+      </FavoritesContext.Provider>
+    );
     const grid = screen.getByTestId('city-grid');
     expect(grid).toBeInTheDocument();
     expect(getByText('London')).toBeVisible();
