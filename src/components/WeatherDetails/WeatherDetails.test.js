@@ -10,6 +10,7 @@ describe('WeatherDetails', () => {
     const mockChangeFavorites = jest.fn();
     const mockSetMode = jest.fn();
     const mockToggleNotesModal = jest.fn();
+    const mockSetLocation = jest.fn();
 
     const mockDetails = {
         "request": {
@@ -59,7 +60,7 @@ describe('WeatherDetails', () => {
         const { getByAltText } = render(
             <FavoritesContext.Provider value={{ favorites: [], changeFavorites: mockChangeFavorites}}>
                 <ModeContext.Provider value={mockSetMode}>
-                    <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal}}>
+                    <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal, setLocation: mockSetLocation }}>
                         <WeatherDetails details={mockDetails} />
                     </ModalContext.Provider>
                 </ModeContext.Provider>
@@ -75,7 +76,7 @@ describe('WeatherDetails', () => {
         const { getByText } = render(
             <FavoritesContext.Provider value={{ favorites: [], changeFavorites: mockChangeFavorites}}>
                 <ModeContext.Provider value={mockSetMode}>
-                    <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal}}>
+                    <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal, setLocation: mockSetLocation }}>
                         <WeatherDetails details={mockDetails} />
                     </ModalContext.Provider>
                 </ModeContext.Provider>
@@ -91,7 +92,7 @@ describe('WeatherDetails', () => {
         const { getByText } = render(
             <FavoritesContext.Provider value={{ favorites: [], changeFavorites: mockChangeFavorites}}>
                 <ModeContext.Provider value={mockSetMode}>
-                    <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal}}>
+                    <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal, setLocation: mockSetLocation }}>
                         <WeatherDetails details={mockDetails} />
                     </ModalContext.Provider>
                 </ModeContext.Provider>

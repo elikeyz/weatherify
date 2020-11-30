@@ -73,12 +73,21 @@
 }
 
 .modal-content section {
+    height: 50vh;
+    overflow: auto;
     padding: 0;
+}
+
+.modal-content section h3 {
+    color: #1A237E;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.modal-content section div {
     display: flex;
     flex-wrap: wrap;
-    height: 50vh;
     align-items: flex-start;
-    overflow: auto;
     align-content: flex-start;
 }
 
@@ -100,6 +109,10 @@
 
 @media only screen and (max-width: 768px) {
     .modal-content article {
+        width: 100%;
+    }
+
+    .modal-content form button {
         width: 100%;
     }
 }

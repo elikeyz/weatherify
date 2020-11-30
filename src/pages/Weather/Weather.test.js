@@ -12,6 +12,7 @@ describe('Weather', () => {
     const mockChangeFavorites = jest.fn();
     const mockSetMode = jest.fn();
     const mockToggleNotesModal = jest.fn();
+  const mockSetLocation = jest.fn();
 
   const originalWindow = global.window;
 
@@ -98,7 +99,7 @@ describe('Weather', () => {
             <MemoryRouter>
                 <FavoritesContext.Provider value={{ favorites: [], changeFavorites: mockChangeFavorites}}>
                     <ModeContext.Provider value={mockSetMode}>
-                        <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal}}>
+                <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal, setLocation: mockSetLocation }}>
                             <Weather />
                         </ModalContext.Provider>
                     </ModeContext.Provider>
@@ -120,7 +121,7 @@ describe('Weather', () => {
             <MemoryRouter>
                 <FavoritesContext.Provider value={{ favorites: [], changeFavorites: mockChangeFavorites}}>
                     <ModeContext.Provider value={mockSetMode}>
-                        <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal}}>
+                <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal, setLocation: mockSetLocation }}>
                             <Weather />
                         </ModalContext.Provider>
                     </ModeContext.Provider>

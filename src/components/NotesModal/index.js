@@ -1,6 +1,7 @@
-import React, { useState, useEffect, createRef } from 'react';
+import React, { useState, useEffect, createRef, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPen, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
+import ModalContext from '../../contexts/ModalContext';
 import './NotesModal.css';
 
 /**
@@ -19,6 +20,9 @@ const NotesModal = (props) => {
     const [showEditForm, setShowEditForm] = useState(false);
     const [existingNote, setExistingNote] = useState('');
     const [editId, setEditId] = useState(-1);
+    const [editLocation, setEditLocation] = useState('global');
+
+    const { location } = useContext(ModalContext);
 
     useEffect(() => {
         // Set modal to disappear if user clicks outside the modal content
@@ -38,9 +42,14 @@ const NotesModal = (props) => {
     }, []);
 
     // Add a new note the notes state and local storage
-    const addNewNote = () => {
-        const updatedNotes = [...notes];
-        updatedNotes.push(newNote);
+    const addNewNote = (location = 'global') => {
+        const updatedNotes = { ...notes };
+        if (updatedNotes[location]) {
+            updatedNotes[location].push(newNote);
+        } else {
+            updatedNotes[location] = [newNote];
+        }
+
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
         setNotes(updatedNotes);
         setNewNote('');
@@ -48,16 +57,17 @@ const NotesModal = (props) => {
     }
 
     // Set up the form to edit an existing note
-    const handleEditNote = (index) => {
+    const handleEditNote = (index, location = 'global') => {
         setShowEditForm(true);
-        setExistingNote(notes[index]);
+        setExistingNote(notes[location][index]);
         setEditId(index);
+        setEditLocation(location);
     };
 
     // Edit an existing note in the state and localstorage
     const editNote = () => {
-        const updatedNotes = [...notes];
-        updatedNotes.splice(editId, 1, existingNote);
+        const updatedNotes = { ...notes };
+        updatedNotes[editLocation].splice(editId, 1, existingNote);
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
         setNotes(updatedNotes);
         setExistingNote('');
@@ -65,9 +75,9 @@ const NotesModal = (props) => {
     };
 
     // Delete an existing note in the state and localStorage
-    const deleteNote = (index) => {
-        const updatedNotes = [...notes];
-        updatedNotes.splice(index, 1);
+    const deleteNote = (index, location = 'global') => {
+        const updatedNotes = { ...notes };
+        updatedNotes[location].splice(index, 1);
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
         setNotes(updatedNotes);
     };
@@ -85,7 +95,7 @@ const NotesModal = (props) => {
                     {!showForm && !showEditForm && <button onClick={() => setShowForm(true)}><FontAwesomeIcon icon={faPlus} />&nbsp;Add Note</button>}
                     {/* Show Add Note form if it is toggled */}
                     {showForm && (
-                        <form data-testid="new-form" onSubmit={() => addNewNote()} onReset={() => setShowForm(false)}>
+                        <form data-testid="new-form" onReset={() => setShowForm(false)}>
                             <textarea 
                                 ref={textInput} 
                                 aria-label="New Note" 
@@ -93,7 +103,8 @@ const NotesModal = (props) => {
                                 onChange={e => {e.preventDefault(); setNewNote(e.target.value)}} 
                                 />
                             <div>
-                                <button type="submit">Add Note</button>
+                                <button onClick={() => addNewNote('global')}>Add For All Locations</button>
+                                <button onClick={() => addNewNote(location)}>Add For This Location</button>
                                 <button className="cancel-btn" type="reset">Cancel</button>
                             </div>
                         </form>
@@ -118,21 +129,43 @@ const NotesModal = (props) => {
                         (notes.length < 1) && <p>You have not added any notes yet</p>
                     }
                     {/* Render all the existing notes here */}
-                    {
-                            notes.map((note, noteIndex) => {
-                                const editTestId = `edit-${noteIndex}-note`;
-                                const deleteTestId = `delete-${noteIndex}-note`;
+                        {notes['global'] && notes['global'].length > 0 && (<h3>For All Locations</h3>)}
+                        <div>
+                            {
+                                notes['global'] && notes['global'].map((note, noteIndex) => {
+                                    const editTestId = `edit-global-${noteIndex}-note`;
+                                    const deleteTestId = `delete-global-${noteIndex}-note`;
+                                    return (
+                                        <article key={noteIndex}>
+                                            <div className="ctrl-btns">
+                                                <button data-testid={editTestId} aria-label="Edit Button" onClick={() => handleEditNote(noteIndex, 'global')}><FontAwesomeIcon icon={faPen} /></button>
+                                                <button data-testid={deleteTestId} aria-label="Delete Button" onClick={() => deleteNote(noteIndex, 'global')}><FontAwesomeIcon icon={faTrash} /></button>
+                                            </div>
+                                            <p>{note}</p>
+                                        </article>
+                                    );
+                                })
+                            }
+                        </div>
+
+                        {notes[location] && notes[location].length > 0 && (<h3>For {location.split('__').join(', ')}</h3>)}
+                        <div>
+                        {
+                                notes[location] && notes[location].map((note, noteIndex) => {
+                                    const editTestId = `edit-${location}-${noteIndex}-note`;
+                                    const deleteTestId = `delete-${location}-${noteIndex}-note`;
                                 return (
                                 <article key={noteIndex}>
                                     <div className="ctrl-btns">
-                                            <button data-testid={editTestId} aria-label="Edit Button" onClick={() => handleEditNote(noteIndex)}><FontAwesomeIcon icon={faPen} /></button>
-                                            <button data-testid={deleteTestId} aria-label="Delete Button" onClick={() => deleteNote(noteIndex)}><FontAwesomeIcon icon={faTrash} /></button>
+                                            <button data-testid={editTestId} aria-label="Edit Button" onClick={() => handleEditNote(noteIndex, location)}><FontAwesomeIcon icon={faPen} /></button>
+                                            <button data-testid={deleteTestId} aria-label="Delete Button" onClick={() => deleteNote(noteIndex, location)}><FontAwesomeIcon icon={faTrash} /></button>
                                     </div>
                                     <p>{note}</p>
                                 </article>
                                 );
                             })
-                    }
+                        }
+                        </div>
                     </section>
                 </div>
             </div>

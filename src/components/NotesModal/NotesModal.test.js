@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import ModalContext from '../../contexts/ModalContext';
 import NotesModal from './index';
 
 describe('NotesModal', () => {
@@ -12,7 +13,11 @@ describe('NotesModal', () => {
   });
 
   test('renders modal when shown', () => {
-    render(<NotesModal show={true} />);
+    render(
+      <ModalContext.Provider value={{ location: 'Lagos__Nigeria' }}>
+        <NotesModal show={true} />
+      </ModalContext.Provider>
+    );
 
     const modal = screen.getByTestId('notes-modal');
     const noNotesText = screen.getByText(/You have not added any notes yet/i);
@@ -21,7 +26,11 @@ describe('NotesModal', () => {
   });
 
   test('hides modal when toggled false', () => {
-    render(<NotesModal show={false} />);
+    render(
+      <ModalContext.Provider value={{ location: 'Lagos__Nigeria' }}>
+        <NotesModal show={false} />
+      </ModalContext.Provider>
+    );
 
     const modal = screen.queryAllByTestId('notes-modal');
     const noNotesText = screen.queryAllByText(/You have not added any notes yet/i);
@@ -30,7 +39,11 @@ describe('NotesModal', () => {
   });
 
   test('should display Add Note form when Add Note button is clicked', () => {
-    const { getByText, getByTestId } = render(<NotesModal show={true} />);
+    const { getByText, getByTestId } = render(
+      <ModalContext.Provider value={{ location: 'Lagos__Nigeria' }}>
+        <NotesModal show={true} />
+      </ModalContext.Provider>
+    );
 
     fireEvent.click(getByText('Add Note'));
 
@@ -38,7 +51,11 @@ describe('NotesModal', () => {
   });
 
   test('should add a new note successfully', () => {
-    const { getByText, getByLabelText, getByTestId } = render(<NotesModal show={true} />);
+    const { getByText, getByLabelText, getByTestId } = render(
+      <ModalContext.Provider value={{ location: 'Lagos__Nigeria' }}>
+        <NotesModal show={true} />
+      </ModalContext.Provider>
+    );
 
     fireEvent.click(getByText('Add Note'));
 
@@ -49,14 +66,18 @@ describe('NotesModal', () => {
   });
 
   test('should edit an existing note successfully', () => {
-    const { getByText, getByLabelText, getByTestId } = render(<NotesModal show={true} />);
+    const { getByText, getByLabelText, getByTestId } = render(
+      <ModalContext.Provider value={{ location: 'Lagos__Nigeria' }}>
+        <NotesModal show={true} />
+      </ModalContext.Provider>
+    );
 
     fireEvent.click(getByText('Add Note'));
 
     userEvent.type(getByLabelText('New Note'), 'Hello World');
-    fireEvent.submit(getByTestId('new-form'));
+    fireEvent.click(getByText('Add For All Locations'));
 
-    fireEvent.click(getByTestId('edit-0-note'));
+    fireEvent.click(getByTestId('edit-global-0-note'));
 
     const editForm = getByTestId('edit-form');
     expect(editForm).toBeVisible();
@@ -68,16 +89,20 @@ describe('NotesModal', () => {
   });
 
   test('should delete an existing note successfully', () => {
-    const { getByText, getByLabelText, getByTestId, queryByText } = render(<NotesModal show={true} />);
+    const { getByText, getByLabelText, getByTestId, queryByText } = render(
+      <ModalContext.Provider value={{ location: 'Lagos__Nigeria' }}>
+        <NotesModal show={true} />
+      </ModalContext.Provider>
+    );
 
     fireEvent.click(getByText('Add Note'));
 
     userEvent.type(getByLabelText('New Note'), 'Hello World');
-    fireEvent.submit(getByTestId('new-form'));
+    fireEvent.click(getByText('Add For All Locations'));
 
     expect(getByText('Hello World')).toBeVisible();
 
-    fireEvent.click(getByTestId('delete-0-note'));
+    fireEvent.click(getByTestId('delete-global-0-note'));
 
     expect(queryByText('Hello World')).not.toBeInTheDocument();
   });

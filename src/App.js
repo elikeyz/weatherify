@@ -23,6 +23,7 @@ const App = () => {
   const [showNotesModal, toggleNotesModal] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [initialLoad, setInitialLoad] = useState(true);
+  const [location, setLocation] = useState('global');
 
   // Set background image and style classes based on input time of day
   const setMode = (timeOfDay) => {
@@ -56,7 +57,7 @@ const App = () => {
     <InitialLoadContext.Provider value={{ initialLoad, toggleInitialLoad }}>
       <FavoritesContext.Provider value={{ favorites, changeFavorites }}>
         <ModeContext.Provider value={setMode}>
-          <ModalContext.Provider value={{ showNotesModal, toggleNotesModal }}>
+          <ModalContext.Provider value={{ showNotesModal, toggleNotesModal, location, setLocation }}>
             <div className={timeClass}>
               <img src={backgroundImage} alt="Background" />
               <div className="overlay">

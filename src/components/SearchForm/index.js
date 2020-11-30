@@ -34,6 +34,7 @@ const SearchForm = () => {
     const getMyLocation = () => {
         navigator.geolocation.getCurrentPosition((location) => {
             history.push(`/weather?search=${encodeURIComponent(`${location.coords.latitude},${location.coords.longitude}`)}`);
+            window.location.reload();
         });
     };
 

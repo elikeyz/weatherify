@@ -16,7 +16,7 @@ const WeatherDetails = ({ details }) => {
 
     const { success, current, location } = details;
 
-    const { toggleNotesModal } = useContext(ModalContext);
+    const { toggleNotesModal, setLocation } = useContext(ModalContext);
     const setMode = useContext(ModeContext);
     const { favorites, changeFavorites } = useContext(FavoritesContext);
 
@@ -40,6 +40,10 @@ const WeatherDetails = ({ details }) => {
             setIsFavorite(true);
         }
     }, [location.country, location.name, favorites]);
+
+    useEffect(() => {
+        setLocation(`${location.name}__${location.country}`);
+    });
 
     // Add this location to Favorites
     const addToFavorites = () => {
