@@ -12,7 +12,7 @@ import './Landing.css';
 const Landing = () => {
 
     const setMode = useContext(ModeContext);
-    const { initialLoad, toggleInitialLoad } = useContext(InitialLoadContext);
+    const { toggleInitialLoad } = useContext(InitialLoadContext);
 
     const history = useHistory();
 
@@ -30,7 +30,7 @@ const Landing = () => {
     // If granted, navigate to the Weather Details Page and display the weather for the user's location
     useEffect(() => {
         if (navigator.onLine) navigator.geolocation.getCurrentPosition((location) => {
-            if (location && initialLoad) {
+            if (location && localStorage.getItem('initial-load') !== 'true') {
                 toggleInitialLoad();
                 history.push(`/weather?search=${encodeURIComponent(`${location.coords.latitude},${location.coords.longitude}`)}`);
             }

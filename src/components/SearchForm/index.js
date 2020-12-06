@@ -1,8 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarker } from '@fortawesome/free-solid-svg-icons';
-import InitialLoadContext from '../../contexts/InitialLoadContext';
 import './SearchForm.css';
 
 /**
@@ -12,8 +11,6 @@ const SearchForm = () => {
 
     // Declare the location field input value state.
     const [location, setLocation] = useState('');
-
-    const { initialLoad } = useContext(InitialLoadContext);
 
     // Declare History object using useHistory hook
     const history = useHistory();
@@ -51,7 +48,7 @@ const SearchForm = () => {
                     value={location} 
                     />
             </form>
-            {!initialLoad && (
+            {localStorage.getItem('initial-load') === 'true' && (
                 <div className="search-form">
                     <button onClick={() => getMyLocation()} className="location-btn"><FontAwesomeIcon icon={faMapMarker} />&nbsp;Get My Current Location</button>
                 </div>

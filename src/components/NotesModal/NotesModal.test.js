@@ -75,7 +75,7 @@ describe('NotesModal', () => {
     fireEvent.click(getByText('Add Note'));
 
     userEvent.type(getByLabelText('New Note'), 'Hello World');
-    fireEvent.click(getByText('Add For All Locations'));
+    fireEvent.click(getByText('Submit'));
 
     fireEvent.click(getByTestId('edit-global-0-note'));
 
@@ -98,7 +98,7 @@ describe('NotesModal', () => {
     fireEvent.click(getByText('Add Note'));
 
     userEvent.type(getByLabelText('New Note'), 'Hello World');
-    fireEvent.click(getByText('Add For All Locations'));
+    fireEvent.click(getByText('Submit'));
 
     expect(getByText('Hello World')).toBeVisible();
 

@@ -8,7 +8,6 @@ import NotesModal from './components/NotesModal';
 import ModalContext from './contexts/ModalContext';
 import ModeContext from './contexts/ModeContext';
 import FavoritesContext from './contexts/FavoritesContext';
-import InitialLoadContext from './contexts/InitialLoadContext';
 import Error404 from './pages/Error404';
 import './App.css';
 
@@ -22,7 +21,6 @@ const App = () => {
   const [timeClass, setTimeClass] = useState('background-image day');
   const [showNotesModal, toggleNotesModal] = useState(false);
   const [favorites, setFavorites] = useState([]);
-  const [initialLoad, setInitialLoad] = useState(true);
   const [location, setLocation] = useState('global');
 
   // Set background image and style classes based on input time of day
@@ -42,9 +40,6 @@ const App = () => {
     setFavorites(updatedFavorites);
   }
 
-  // Declare function for setting the initial load state to false
-  const toggleInitialLoad = () => setInitialLoad(false);
-
   // Get Favorite Cities from localStorage and use it to update the state
   useEffect(() => {
     if (localStorage.getItem('favorites')) {
@@ -54,8 +49,7 @@ const App = () => {
   }, []);
 
   return (
-    <InitialLoadContext.Provider value={{ initialLoad, toggleInitialLoad }}>
-      <FavoritesContext.Provider value={{ favorites, changeFavorites }}>
+    <FavoritesContext.Provider value={{ favorites, changeFavorites }}>
         <ModeContext.Provider value={setMode}>
           <ModalContext.Provider value={{ showNotesModal, toggleNotesModal, location, setLocation }}>
             <div className={timeClass}>
@@ -84,7 +78,6 @@ const App = () => {
           </ModalContext.Provider>
         </ModeContext.Provider>
       </FavoritesContext.Provider>
-    </InitialLoadContext.Provider>
   );
 }
 
