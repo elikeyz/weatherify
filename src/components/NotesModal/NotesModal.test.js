@@ -77,7 +77,7 @@ describe('NotesModal', () => {
     userEvent.type(getByLabelText('New Note'), 'Hello World');
     fireEvent.click(getByText('Submit'));
 
-    fireEvent.click(getByTestId('edit-global-0-note'));
+    fireEvent.click(getByTestId('edit-Lagos__Nigeria-0-note'));
 
     const editForm = getByTestId('edit-form');
     expect(editForm).toBeVisible();
@@ -102,7 +102,7 @@ describe('NotesModal', () => {
 
     expect(getByText('Hello World')).toBeVisible();
 
-    fireEvent.click(getByTestId('delete-global-0-note'));
+    fireEvent.click(getByTestId('delete-Lagos__Nigeria-0-note'));
 
     expect(queryByText('Hello World')).not.toBeInTheDocument();
   });

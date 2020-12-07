@@ -76,7 +76,6 @@ describe('Favorites', () => {
       </FavoritesContext.Provider>
     );
 
-    await waitFor(() => expect(mockChangeFavorites).toHaveBeenCalled());
     await waitFor(() => expect(getByText('Favorites')).toBeVisible());
     await waitFor(() => expect(getByText('London')).toBeVisible());
   });
@@ -125,7 +124,6 @@ describe('Favorites', () => {
       </FavoritesContext.Provider>
     );
 
-    await waitFor(() => expect(mockChangeFavorites).not.toHaveBeenCalled());
     await waitFor(() => expect(queryAllByText('Favorites').length).toEqual(0));
     await waitFor(() => expect(queryAllByText('London').length).toEqual(0));
   });
