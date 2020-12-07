@@ -121,7 +121,7 @@ describe('Weather', () => {
             <MemoryRouter>
                 <FavoritesContext.Provider value={{ favorites: [], changeFavorites: mockChangeFavorites}}>
                     <ModeContext.Provider value={mockSetMode}>
-                <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal, setLocation: mockSetLocation }}>
+                        <ModalContext.Provider value={{ showNotesModal: false, toggleNotesModal: mockToggleNotesModal, setLocation: mockSetLocation }}>
                             <Weather />
                         </ModalContext.Provider>
                     </ModeContext.Provider>

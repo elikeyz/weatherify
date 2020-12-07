@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import PopularCities from '../../components/PopularCities';
 import ModeContext from '../../contexts/ModeContext';
 import Favorites from '../../components/Favorites';
-import InitialLoadContext from '../../contexts/InitialLoadContext';
 import './Landing.css';
 
 /**
@@ -12,7 +11,6 @@ import './Landing.css';
 const Landing = () => {
 
     const setMode = useContext(ModeContext);
-    const { toggleInitialLoad } = useContext(InitialLoadContext);
 
     const history = useHistory();
 
@@ -31,7 +29,7 @@ const Landing = () => {
     useEffect(() => {
         if (navigator.onLine) navigator.geolocation.getCurrentPosition((location) => {
             if (location && localStorage.getItem('initial-load') !== 'true') {
-                toggleInitialLoad();
+                localStorage.setItem('initial-load', true);
                 history.push(`/weather?search=${encodeURIComponent(`${location.coords.latitude},${location.coords.longitude}`)}`);
             }
         });

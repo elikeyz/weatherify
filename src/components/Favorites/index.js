@@ -26,7 +26,6 @@ const Favorites = () => {
                 .then((result) => {
                     const citiesData = result.filter(res => res.status === 200 && res.data.success !== false).map(res => res.data);
                     if (citiesData.length > 0) {
-                        changeFavorites(citiesData);
                         setMyFavorites(citiesData);
                     }
                 })
@@ -39,7 +38,7 @@ const Favorites = () => {
         return () => {
             cancelTokenSource.cancel();
         };
-    }, [changeFavorites]);
+    }, []);
 
     // Remove a location from Favorites
     const clearCity = (index) => {
